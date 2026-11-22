@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Royal Wedding | {{ $mempelai?->nama_pria ?? 'Budi' }} & {{ $mempelai?->nama_wanita ?? 'Siti' }}</title>
+    <title>Undangan Pernikahan | Idham & Ketrin</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -208,195 +208,281 @@ font-weight: 500;
             color: var(--muted);
         }
 
-        /* HERO */
+        /* SAMPUL PEMBUKA */
+        .opening-cover {
+            position: fixed;
+            inset: 0;
+            z-index: 40;
+            display: grid;
+            min-height: 100vh;
+            min-height: 100svh;
+            overflow-y: auto;
+            padding: clamp(24px, 5vh, 56px) clamp(20px, 5vw, 76px);
+            background:
+                radial-gradient(circle at 50% 45%, rgba(255,255,255,.55), transparent 55%),
+                #f8f2e9;
+            transition: opacity .45s ease, visibility 0s linear .45s;
+        }
 
-     /* HERO ROYAL BAROQUE */
+        .opening-cover[hidden] {
+            display: none;
+        }
 
-.hero {
-    min-height: 100vh;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 125px 7% 80px;
-    overflow: hidden;
-    background:
-        radial-gradient(ellipse at 20% 50%, #fff 0%, transparent 55%),
-        linear-gradient(135deg, #fdf9f0, #ead9bb, #fffaf0);
-}
+        .opening-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, .9fr);
+            grid-template-rows: auto 1fr;
+            grid-template-areas:
+                "photo kicker"
+                "photo details";
+            align-items: center;
+            gap: 12px clamp(36px, 7vw, 104px);
+            width: min(100%, 1100px);
+            margin: auto;
+        }
 
-.hero::before {
-    content: "❦";
-    position: absolute;
-    top: -55px;
-    left: -35px;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 230px;
-    color: rgba(177,137,69,.25);
-    transform: rotate(-35deg);
-}
+        .opening-kicker {
+            grid-area: kicker;
+            align-self: end;
+            color: #38342e;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: .34em;
+            line-height: 1.7;
+            text-align: center;
+            text-transform: uppercase;
+        }
 
-.hero::after {
-    content: "❦";
-    position: absolute;
-    bottom: -75px;
-    right: -35px;
-    font-size: 230px;
-    color: rgba(177,137,69,.25);
-    transform: rotate(145deg);
-}
+        .opening-media {
+            position: relative;
+            grid-area: photo;
+            justify-self: center;
+            width: min(100%, 440px);
+        }
 
-.hero-frame {
-    width: 100%;
-    max-width: 1250px;
-    min-height: 650px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    gap: 55px;
-    padding: 55px;
-    color: var(--brown);
-    border: 1px solid rgba(185,154,97,.7);
-    outline: 1px solid rgba(185,154,97,.35);
-    outline-offset: 9px;
-    background: rgba(255,253,248,.72);
-    box-shadow: 0 20px 65px rgba(80,60,30,.13);
-    position: relative;
-    z-index: 1;
-}
+        .opening-photo-frame {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            width: 100%;
+            aspect-ratio: .78;
+            overflow: hidden;
+            padding: 8px;
+            border: 1px solid rgba(169, 139, 85, .85);
+            border-radius: 50% 50% 0 0 / 24% 24% 0 0;
+            background: #f8f2e9;
+            box-shadow: 0 0 0 5px rgba(169, 139, 85, .1);
+        }
 
-.hero-photo {
-    position: relative;
-    min-height: 520px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        .opening-photo-frame img {
+            width: 100%;
+            height: 100%;
+            min-width: 0;
+            object-fit: cover;
+            object-position: center 32%;
+        }
 
-.hero-photo::before {
-    content: "";
-    position: absolute;
-    width: 85%;
-    height: 95%;
-    border: 3px double var(--gold);
-    border-radius: 48% 48% 8px 8px;
-    box-shadow:
-        0 0 0 8px rgba(185,154,97,.12),
-        0 0 0 14px rgba(255,255,255,.8),
-        0 15px 45px rgba(80,60,30,.15);
-}
+        .opening-photo-placeholder {
+            display: grid;
+            place-items: center;
+            min-width: 0;
+            padding: 8px;
+            background: #eee7dc;
+            color: #71695d;
+            font-size: 11px;
+            line-height: 1.6;
+            text-align: center;
+        }
 
-.hero-photo::after {
-    content: "❦";
-    position: absolute;
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: var(--gold-dark);
-    font-size: 65px;
-    text-shadow: 0 2px 5px rgba(80,60,30,.2);
-}
+        .opening-branch {
+            position: absolute;
+            z-index: 2;
+            overflow: visible;
+            color: #a78a50;
+            pointer-events: none;
+        }
 
-.hero-couple-photos {
-    position: relative;
-    z-index: 1;
-    width: 78%;
-    height: 440px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    overflow: hidden;
-    border-radius: 48% 48% 5px 5px;
-    padding: 8px;
-    background: linear-gradient(135deg, #d7b77b, #fff4d9, #a9803e);
-    box-shadow: 0 12px 35px rgba(80,60,30,.2);
-}
+        .opening-branch--long {
+            top: -2%;
+            left: -8%;
+            width: 31%;
+            height: 35%;
+            transform: rotate(-4deg);
+        }
 
-.hero-couple-photos img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    min-width: 0;
-}
+        .opening-branch--small {
+            right: -7%;
+            bottom: -4%;
+            width: 21%;
+            height: 20%;
+            transform: rotate(7deg);
+        }
 
-.hero-couple-photos img:first-child {
-    border-radius: 48% 0 0 5px;
-}
+        .opening-details {
+            grid-area: details;
+            display: grid;
+            justify-items: center;
+            gap: clamp(16px, 2.8vh, 28px);
+            padding: 8px 0;
+            text-align: center;
+        }
 
-.hero-couple-photos img:last-child {
-    border-radius: 0 48% 5px 0;
-}
+        .opening-names {
+            color: #302e2a;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(48px, 5.2vw, 76px);
+            font-weight: 400;
+            letter-spacing: -.045em;
+            line-height: 1.08;
+        }
 
-.hero-content {
-    text-align: center;
-    padding: 20px;
-}
+        .opening-ampersand {
+            display: inline-block;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: .92em;
+            font-style: italic;
+            font-weight: 400;
+        }
 
-.hero-label {
-    color: var(--gold-dark);
-    font-size: 11px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-}
+        .opening-date {
+            max-width: 100%;
+            color: #575047;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(16px, 2vw, 21px);
+            font-weight: 500;
+            letter-spacing: .12em;
+            line-height: 1.5;
+        }
 
-.hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-weight: 500;
-    font-size: clamp(65px, 7vw, 100px);
-    font-weight: 400;
-    line-height: 1.2;
-    color: #a47735;
-    margin: 25px 0;
-    text-shadow: 1px 2px 2px rgba(120,80,25,.15);
-}
+        .opening-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 52px;
+            padding: 12px 32px;
+            border: 1px solid rgba(36, 57, 67, .18);
+            border-radius: 10px;
+            background: #4b6571;
+            box-shadow: 0 8px 20px rgba(44, 62, 69, .14);
+            color: #fffaf2;
+            cursor: pointer;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.2;
+            transition: background-color .2s ease, transform .2s ease, box-shadow .2s ease;
+        }
 
-.hero-divider {
-    width: 75%;
-    height: 1px;
-    margin: 25px auto;
-    background: linear-gradient(
-        to right,
-        transparent,
-        var(--gold),
-        transparent
-    );
-}
+        .opening-button:hover {
+            transform: translateY(-2px);
+            background: #3e5864;
+            box-shadow: 0 11px 24px rgba(44, 62, 69, .2);
+        }
 
-.hero-date {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    letter-spacing: 4px;
-    color: var(--gold-dark);
-}
+        .opening-button:focus-visible {
+            outline: 2px solid #a78a50;
+            outline-offset: 4px;
+        }
 
-.hero-note {
-    margin-top: 25px;
-    font-size: 10px;
-    letter-spacing: 3px;
-    line-height: 2;
-    color: var(--muted);
-}
+        html.js .invitation-content {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity .45s ease, visibility 0s linear .45s;
+        }
 
-.hero-button {
-    display: inline-block;
-    margin-top: 30px;
-    padding: 15px 35px;
-    color: white;
-    background: linear-gradient(135deg, #d6b574, #98703a, #d7b77b);
-    border: 3px double #f8e6bc;
-    outline: 1px solid var(--gold-dark);
-    outline-offset: 3px;
-    font-size: 10px;
-    letter-spacing: 2px;
-    box-shadow: 0 8px 20px rgba(100,70,30,.2);
-    transition: .3s;
-}
+        html.js body.invitation-open .invitation-content {
+            position: relative;
+            inset: auto;
+            overflow: visible;
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transition-delay: 0s;
+        }
 
-.hero-button:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 25px rgba(100,70,30,.3);
-}
+        body.invitation-open .opening-cover {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        @media (max-width: 760px) {
+            .opening-cover {
+                padding: 24px clamp(20px, 6vw, 32px);
+            }
+
+            .opening-layout {
+                grid-template-columns: minmax(0, 1fr);
+                grid-template-rows: auto auto auto;
+                grid-template-areas:
+                    "kicker"
+                    "photo"
+                    "details";
+                gap: 14px;
+                width: min(100%, 430px);
+            }
+
+            .opening-kicker {
+                align-self: auto;
+                font-size: 10px;
+                letter-spacing: .3em;
+            }
+
+            .opening-media {
+                width: min(100%, 390px);
+            }
+
+            .opening-photo-frame {
+                padding: 6px;
+            }
+
+            .opening-details {
+                gap: 14px;
+                padding: 4px 0 0;
+            }
+
+            .opening-names {
+                font-size: clamp(42px, 12vw, 58px);
+            }
+
+            .opening-date {
+                font-size: clamp(15px, 4.3vw, 18px);
+                letter-spacing: .09em;
+            }
+
+            .opening-button {
+                width: min(100%, 290px);
+            }
+        }
+
+        @media (max-height: 680px) and (max-width: 760px) {
+            .opening-cover {
+                align-items: start;
+                padding-top: 18px;
+                padding-bottom: 18px;
+            }
+
+            .opening-layout {
+                gap: 10px;
+            }
+
+            .opening-media {
+                width: min(74vw, 300px);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .opening-cover,
+            .opening-button,
+            .invitation-content {
+                transition-duration: 0s !important;
+            }
+        }
         /* MEMPELAI */
 
         .couple-section {
@@ -1741,106 +1827,86 @@ footer p {
 
 <body>
 
-    <div class="page-frame"></div>
-
     @php
         $namaPria = $mempelai?->nama_pria ?? 'Budi';
         $namaWanita = $mempelai?->nama_wanita ?? 'Siti';
+        $tanggalAcaraPembuka = $acaras->first()?->tanggal;
     @endphp
 
-    <!-- NAVBAR -->
-    <nav class="navbar">
-        <a href="#home" class="brand">{{ $namaPria }} & {{ $namaWanita }}</a>
+    <header class="opening-cover" id="openingCover">
+        <div class="opening-layout">
+            <p class="opening-kicker">Undangan Pernikahan</p>
 
-        <button class="menu-toggle" id="menuToggle" aria-label="Buka menu">☰</button>
+            <div class="opening-media">
+                <svg class="opening-branch opening-branch--long" viewBox="0 0 180 220" fill="none" aria-hidden="true" focusable="false">
+                    <path d="M15 210C25 164 47 125 76 89C103 56 132 29 165 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M33 166C19 162 12 150 8 136C23 140 32 150 33 166ZM49 137C48 120 40 109 28 101C28 116 35 129 49 137ZM67 108C63 91 67 78 76 66C82 82 79 96 67 108ZM90 80C91 64 101 53 114 47C111 63 102 74 90 80ZM115 54C121 39 134 31 149 29C141 43 130 51 115 54ZM46 145C36 132 23 128 10 130C18 143 31 149 46 145ZM68 112C53 102 40 102 27 107C39 117 53 119 68 112ZM90 82C78 68 76 55 80 42C91 53 96 67 90 82ZM116 57C104 45 102 32 106 19C118 31 122 44 116 57Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+                    <circle cx="23" cy="177" r="2" fill="currentColor"/>
+                    <circle cx="42" cy="149" r="1.8" fill="currentColor"/>
+                    <circle cx="82" cy="93" r="1.8" fill="currentColor"/>
+                </svg>
 
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#home">HOME</a></li>
-            <li><a href="#mempelai">MEMPELAI</a></li>
-            <li><a href="#acara">ACARA</a></li>
-            <li><a href="#story">OUR STORY</a></li>
-            <li><a href="#galeri">GALERI</a></li>
-            <li><a href="#rsvp">RSVP</a></li>
-            <li><a href="#ucapan">UCAPAN</a></li>
-        </ul>
-    </nav>
+                <div class="opening-photo-frame">
+                    @if($mempelai?->foto_pria)
+                        <img src="{{ asset('storage/' . $mempelai->foto_pria) }}" alt="Idham">
+                    @else
+                        <div class="opening-photo-placeholder">Isi foto pria di<br>storage/app/public/mempelai/</div>
+                    @endif
 
-    <!-- HERO -->
-<!-- HERO ROYAL BAROQUE -->
-<header class="hero" id="home">
+                    @if($mempelai?->foto_wanita)
+                        <img src="{{ asset('storage/' . $mempelai->foto_wanita) }}" alt="Ketrin">
+                    @else
+                        <div class="opening-photo-placeholder">Isi foto wanita di<br>storage/app/public/mempelai/</div>
+                    @endif
+                </div>
 
-    <div class="hero-frame">
+                <svg class="opening-branch opening-branch--small" viewBox="0 0 110 110" fill="none" aria-hidden="true" focusable="false">
+                    <path d="M7 101C29 77 52 54 102 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M27 81C19 72 10 68 3 68C8 78 17 83 27 81ZM43 66C40 56 42 48 48 42C52 51 50 59 43 66ZM60 52C70 49 78 43 81 35C71 37 64 43 60 52ZM77 37C74 28 77 20 83 14C87 23 84 31 77 37Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+                    <circle cx="34" cy="73" r="1.7" fill="currentColor"/>
+                    <circle cx="70" cy="44" r="1.7" fill="currentColor"/>
+                </svg>
+            </div>
 
-        <div class="hero-photo">
-            <div class="hero-couple-photos">
+            <div class="opening-details">
+                <h1 class="opening-names">Idham <span class="opening-ampersand">&amp;</span> Ketrin</h1>
 
-                @if($mempelai?->foto_pria)
-                    <img
-                        src="{{ asset('storage/' . $mempelai->foto_pria) }}"
-                        alt="{{ $namaPria }}"
-                    >
-                @else
-                    <img
-                        src="https://placehold.co/600x800/f2ede3/80683e?text=Groom"
-                        alt="Foto mempelai pria"
-                    >
-                @endif
+                <p class="opening-date">
+                    @if($tanggalAcaraPembuka)
+                        {{ \Carbon\Carbon::parse($tanggalAcaraPembuka)->locale('id')->translatedFormat('l, d F Y') }}
+                    @else
+                        Tanggal pernikahan segera diumumkan
+                    @endif
+                </p>
 
-                @if($mempelai?->foto_wanita)
-                    <img
-                        src="{{ asset('storage/' . $mempelai->foto_wanita) }}"
-                        alt="{{ $namaWanita }}"
-                    >
-                @else
-                    <img
-                        src="https://placehold.co/600x800/f2ede3/80683e?text=Bride"
-                        alt="Foto mempelai wanita"
-                    >
-                @endif
-
+                <button class="opening-button" id="openInvitation" type="button" aria-controls="invitationContent" aria-expanded="false">
+                    Buka undangan
+                </button>
             </div>
         </div>
+    </header>
 
-        <div class="hero-content">
+    <div class="invitation-content" id="invitationContent" inert aria-hidden="true">
+        <div class="page-frame"></div>
 
-            <p class="hero-label">The Wedding Invitation</p>
+        <nav class="navbar">
+            <a href="#mempelai" class="brand">{{ $namaPria }} & {{ $namaWanita }}</a>
 
-            <div class="ornament">❦</div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Buka menu">☰</button>
 
-            <h1>{{ $namaPria }} & {{ $namaWanita }}</h1>
-
-            <div class="hero-divider"></div>
-
-            <p style="font-family:'Cormorant Garamond',serif;
-                      font-size:21px;
-                      font-style:italic;
-                      line-height:1.7;
-                      color:#76634b;">
-                Dengan penuh rasa syukur,
-                kami mengundang Bapak/Ibu/Saudara/i
-                untuk hadir dalam hari bahagia kami.
-            </p>
-
-            <div class="ornament">❦</div>
-
-            <p class="hero-date">20 · 09 · 2027</p>
-
-            <p class="hero-note">
-                WE INVITE YOU TO CELEBRATE OUR WEDDING
-            </p>
-
-            <a href="#rsvp" class="hero-button">
-                KONFIRMASI KEHADIRAN
-            </a>
-
-        </div>
-
-    </div>
-
-</header>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#mempelai">HOME</a></li>
+                <li><a href="#mempelai">MEMPELAI</a></li>
+                <li><a href="#acara">ACARA</a></li>
+                <li><a href="#story">OUR STORY</a></li>
+                <li><a href="#galeri">GALERI</a></li>
+                <li><a href="#rsvp">RSVP</a></li>
+                <li><a href="#ucapan">UCAPAN</a></li>
+            </ul>
+        </nav>
 
     <!-- MEMPELAI -->
-    <section class="section couple-section" id="mempelai">
+    <section class="section couple-section" id="mempelai" tabindex="-1">
         <div class="section-heading">
             <span class="overline">The Beloved Couple</span>
             <h2>Meet The Couple</h2>
@@ -2206,6 +2272,28 @@ footer p {
 
     <!-- JAVASCRIPT -->
     <script>
+        const openingCover = document.getElementById('openingCover');
+        const openInvitation = document.getElementById('openInvitation');
+        const invitationContent = document.getElementById('invitationContent');
+        const invitationStart = document.getElementById('mempelai');
+
+        openInvitation.addEventListener('click', () => {
+            openInvitation.disabled = true;
+            openInvitation.setAttribute('aria-expanded', 'true');
+            invitationContent.removeAttribute('inert');
+            invitationContent.removeAttribute('aria-hidden');
+            document.body.classList.add('invitation-open');
+
+            window.setTimeout(() => {
+                openingCover.hidden = true;
+                invitationStart.focus({ preventScroll: true });
+                invitationStart.scrollIntoView({
+                    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+                    block: 'start',
+                });
+            }, 460);
+        });
+
         // Menu navigasi HP
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
@@ -2252,5 +2340,6 @@ footer p {
         setInterval(updateCountdown, 1000);
     </script>
 
+    </div>
 </body>
 </html>
