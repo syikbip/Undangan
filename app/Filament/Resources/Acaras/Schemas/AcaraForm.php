@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources\Acaras\Schemas;
 
+use App\Models\Acara;
 use App\Models\Mempelai;
+use App\Models\UndanganAktif;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
@@ -19,6 +21,7 @@ class AcaraForm
             ->components([
                 Section::make('Identitas acara')->columnSpanFull()->columns(2)->schema([
                     Select::make('mempelai_id')->label('Pasangan')
+                        ->disabled(fn (?Acara $record) => $record && UndanganAktif::where('acara_id', $record->id)->exists())
                         ->options(fn () => Mempelai::orderBy('nama_pria')->get()->mapWithKeys(
                             fn ($couple) => [$couple->id => $couple->nama_pria.' & '.$couple->nama_wanita]
                         ))->searchable()->required(),

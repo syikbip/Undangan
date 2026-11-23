@@ -2,9 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\Acara;
 use App\Models\Galeri;
-use App\Models\Mempelai;
 use App\Models\Rsvp;
 use App\Models\Tamu;
 use App\Models\Ucapan;
@@ -22,21 +20,8 @@ class WeddingDashboardTest extends TestCase
         $this->withoutVite();
 
         $admin = User::factory()->create();
-        $couple = Mempelai::query()->create([
-            'nama_pria' => 'Idham',
-            'nama_wanita' => 'Ketrin',
-            'deskripsi' => 'Hari bahagia',
-        ]);
-        $event = Acara::query()->create([
-            'mempelai_id' => $couple->id,
-            'nama_acara' => 'Akad Nikah',
-            'tanggal' => now()->addMonth()->toDateString(),
-            'waktu_mulai' => '09:00:00',
-            'waktu_selesai' => '12:00:00',
-            'lokasi' => 'Gedung Bahagia',
-            'alamat' => 'Jalan Melati No. 10',
-        ]);
-        UndanganAktif::pilih($event);
+        $event = UndanganAktif::acaraAktif();
+        $event->update(['lokasi' => 'Gedung Bahagia']);
         $guest = Tamu::query()->create([
             'nama' => 'Ayu Pratiwi',
             'email' => 'ayu@example.test',
@@ -45,12 +30,12 @@ class WeddingDashboardTest extends TestCase
         ]);
 
         Galeri::query()->create([
-            'mempelai_id' => $couple->id,
+            'mempelai_id' => $event->mempelai_id,
             'judul' => 'Momen bahagia',
             'foto' => 'galeri/momen.jpg',
         ]);
         Galeri::query()->create([
-            'mempelai_id' => $couple->id,
+            'mempelai_id' => $event->mempelai_id,
             'judul' => 'Momen kedua',
             'foto' => 'galeri/momen-kedua.jpg',
         ]);
@@ -88,6 +73,7 @@ class WeddingDashboardTest extends TestCase
             ->assertSee('Gedung Bahagia')
             ->assertSee('Ayu Pratiwi')
             ->assertSee('Semoga menjadi keluarga yang bahagia.')
+            ->assertSee('Edit acara utama')->assertSee('/admin/acaras/'.$event->id.'/edit')
             ->assertSee('Ringkasan kehadiran')
             ->assertSeeInOrder(['Jumlah orang hadir', '3', 'orang'])
             ->assertSee('Ucapan dan doa terbaru')
@@ -100,21 +86,4 @@ class WeddingDashboardTest extends TestCase
             ->assertSee('aria-label="Ucapan dan Doa: 1"', false);
     }
 
-    public function test_admin_identity_follows_the_selected_invitation(): void
-    {
-        $this->withoutVite();
-        $this->actingAs(User::factory()->create());
-        $this->get('/admin')->assertOk()->assertSee('Belum ada undangan aktif')->assertSee('Admin Undangan');
-
-        foreach (['Raka', 'Fajar'] as $name) {
-            $couple = Mempelai::create(['nama_pria' => $name, 'nama_wanita' => 'Ayu']);
-            $event = Acara::create([
-                'mempelai_id' => $couple->id,
-                'nama_acara' => 'Akad',
-                'tanggal' => '2026-12-20',
-            ]);
-            UndanganAktif::pilih($event);
-            $this->get('/admin')->assertOk()->assertSee($name.' & Ayu');
-        }
-    }
 }

@@ -10,8 +10,8 @@
 <div class="wedding-overview">
     <section class="wedding-overview__hero">
         <div>
-            <span class="wedding-overview__eyebrow">Undangan aktif</span>
-            <h3>{{ $event?->mempelai ? $event->mempelai->nama_pria.' & '.$event->mempelai->nama_wanita : 'Belum ada undangan aktif' }}</h3>
+            <span class="wedding-overview__eyebrow">Acara utama</span>
+            <h3>{{ $event?->mempelai ? $event->mempelai->nama_pria.' & '.$event->mempelai->nama_wanita : 'Acara utama belum tersedia' }}</h3>
             <p>
                 @if ($event)
                     {{ $event->nama_acara }}{{ $eventIsUpcoming ? ' akan berlangsung' : ' telah berlangsung' }}.
@@ -19,9 +19,12 @@
                         {{ $event->lokasi }}.
                     @endif
                 @else
-                    Pilih pasangan dan acara di menu Undangan Aktif.
+                    Jadwal acara belum tersedia.
                 @endif
             </p>
+            @if ($event)
+                <a class="inline-block mt-2 text-white underline" href="{{ \App\Filament\Resources\Acaras\AcaraResource::getUrl('edit', ['record' => $event]) }}">Edit acara utama</a>
+            @endif
         </div>
 
         <div class="wedding-event__date">

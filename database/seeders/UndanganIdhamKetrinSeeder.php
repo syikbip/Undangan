@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Acara;
 use App\Models\Galeri;
 use App\Models\Mempelai;
 use App\Models\UndanganAktif;
@@ -13,8 +12,15 @@ class UndanganIdhamKetrinSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::transaction(function () {
-            if (UndanganAktif::acaraAktif(true)) {
+        $this->prepare(false);
+    }
+
+    public function prepare(bool $upgrade): void
+    {
+        DB::transaction(function () use ($upgrade) {
+            DB::table('undangan_aktif')->insertOrIgnore(['id' => 1]);
+            $active = UndanganAktif::acaraAktif(true);
+            if ($active && ! $upgrade) {
                 return;
             }
 
@@ -24,9 +30,19 @@ class UndanganIdhamKetrinSeeder extends Seeder
                 'foto_wanita' => 'mempelai/y7cCYinX0WXgzEDMgHLwNj1Re9RrGdn22DgIZsHc.jpg',
                 'story_photo' => 'galeri/idham-ketrin-d3379654f552cde9.webp',
             ]);
-            $event = Acara::firstOrCreate([
-                'mempelai_id' => $couple->id, 'nama_acara' => 'Akad Nikah', 'tanggal' => '2026-12-20',
-            ], ['maps_url' => config('wedding.akad_location_url')]);
+            $events = $couple->acaras();
+            $event = $events->where('nama_acara', 'like', '%akad%')
+                ->orderByRaw('CASE WHEN id = ? THEN 0 WHEN tanggal = ? THEN 1 ELSE 2 END', [$active?->id, '2026-12-20'])
+                ->orderBy('id')->first();
+            if (! $event && $active?->mempelai_id == $couple->id) {
+                $event = $active;
+            }
+            $event ??= $couple->acaras()->make(['nama_acara' => 'Akad Nikah', 'tanggal' => '2026-12-20']);
+            $event->waktu_mulai ??= '10:00:00';
+            if (blank($event->maps_url)) {
+                $event->maps_url = config('wedding.akad_location_url') ?: 'https://maps.app.goo.gl/2E2nYaRU8bvCKek78';
+            }
+            $event->save();
 
             $photos = array_map(fn ($hash) => "galeri/idham-ketrin-{$hash}.webp", [
                 'a837f9e723f65e0d', 'c64b0edf06705e6f', 'cd214a61c83e370d', 'd3379654f552cde9',
