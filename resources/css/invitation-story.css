@@ -1,0 +1,89 @@
+#invitationContent #story {
+    --story-ink: #30170f;
+    --story-wine: #6b1720;
+    isolation: isolate;
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 41.3fr) minmax(0, 39.4fr);
+    align-items: center;
+    column-gap: 2.45vw;
+    padding: 4.35vw 12.4vw 5vw 4.55vw;
+    background: #fffaf5 url('/assets/wedding/ivory-paper-texture.webp') repeat;
+    background-blend-mode: multiply;
+    font-family: var(--font-display);
+    color: var(--story-ink);
+}
+#story::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 25.72%;
+    aspect-ratio: 430/538;
+    background: url('/assets/wedding/story-lily-embossed.webp') right bottom / contain no-repeat;
+    z-index: -1;
+    pointer-events: none;
+}
+#story .story-mount {
+    position: relative;
+    aspect-ratio: .88;
+    padding: 1.95%;
+    background: #fff5e9;
+    box-shadow: 0 2px 7px #58340e38;
+}
+#story .story-image { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+#story .story-corner { position: absolute; width: 8.35%; height: auto; pointer-events: none; }
+#story .story-corner.tl { left: 0; top: 0; }
+#story .story-corner.tr { right: 0; top: 0; transform: scaleX(-1); }
+#story .story-corner.bl { left: 0; bottom: 0; transform: scaleY(-1); }
+#story .story-corner.br { right: 0; bottom: 0; transform: scale(-1); }
+#invitationContent #story h2 {
+    color: var(--story-wine);
+    font: italic 500 7.65vw/1.04 var(--font-display);
+    margin-left: 1.1vw;
+    width: fit-content;
+    transform: scaleX(1.07);
+    transform-origin: left center;
+}
+#story .story-divider {
+    display: flex;
+    align-items: center;
+    gap: 1.45vw;
+    margin: .8vw 0 .42vw 1vw;
+}
+#story .story-divider img { width: 11.05vw; height: auto; }
+#story .story-divider::before, #story .story-divider::after {
+    content: '';
+    width: 9.3vw;
+    height: 1px;
+    background: #c48b37;
+}
+#story .story-prose { font-size: max(18px,1.61vw); line-height: 1.15; font-weight: 500; }
+#story .story-prose p + p { margin-top: .95vw; }
+#story blockquote { font: italic 500 max(21px,1.95vw)/1.12 var(--font-display); max-width: min(100%, 36vw); margin-top: 1.55vw; }
+#story .story-signature { color: var(--story-wine); font: italic 500 max(28px,2.82vw)/1.1 var(--font-display); margin-top: 2.65vw; }
+@media (min-width: 768px) and (max-width: 1050px) {
+    #invitationContent #story { padding: 5vw 6vw 5vw 4vw; column-gap: 3vw; }
+    #story .story-prose { line-height: 1.2; }
+    #story blockquote { max-width: 100%; }
+}
+@media (max-width: 767px) {
+    #invitationContent #story {
+        grid-template-columns: minmax(0,1fr);
+        grid-template-areas: 'heading' 'photo' 'text';
+        padding: 38px 7% 64px;
+        gap: 20px;
+    }
+    #story .story-copy { display: contents; }
+    #story .story-heading { grid-area: heading; text-align: center; }
+    #invitationContent #story h2 { margin: 0 auto; transform: none; font-size: clamp(48px,11vw,72px); }
+    #story .story-divider { justify-content: center; gap: 12px; margin: 8px auto 0; }
+    #story .story-divider img { width: 88px; }
+    #story .story-divider::before, #story .story-divider::after { width: 17%; }
+    #story .story-mount { grid-area: photo; width: min(100%,420px); justify-self: center; }
+    #story .story-prose { grid-area: text; font-size: 21px; line-height: 1.27; }
+    #story .story-prose p + p { margin-top: 14px; }
+    #story blockquote { max-width: 100%; font-size: 24px; margin: 18px 0; }
+    #story .story-signature { font-size: 32px; margin-top: 20px; }
+    #story::before { width: 30%; opacity: .45; }
+}

@@ -1,0 +1,74 @@
+#invitationContent #galeri {
+    --gallery-gap: clamp(10px, .8vw, 18px);
+    position: relative;
+    isolation: isolate;
+    padding: 1vw 4.5vw 4.3vw;
+    background: #fff9f2 url('/assets/wedding/ivory-paper-texture.webp') repeat;
+    background-blend-mode: multiply;
+    color: #30170f;
+    font-family: var(--font-display);
+}
+#galeri::before, #galeri::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    top: .78vw;
+    width: 12.1%;
+    aspect-ratio: 202/369;
+    background: url('/assets/wedding/gallery-lily-left.webp') center/contain no-repeat;
+}
+#galeri::before { left: 0; }
+#galeri::after { right: 0; transform: scaleX(-1); }
+#galeri .gallery-heading { text-align: center; }
+#invitationContent #galeri h2 { font: italic 500 clamp(68px,8.1vw,168px)/.94 var(--font-display); color: #6b1720; width: fit-content; margin-inline: auto; transform: scaleX(1.06); }
+#galeri .gallery-divider { display: flex; align-items: center; justify-content: center; gap: 1.4vw; margin: .15vw auto 0; }
+#galeri .gallery-divider img { width: 11.2vw; height: auto; }
+#galeri .gallery-divider::before, #galeri .gallery-divider::after { content: ''; width: 9.2vw; height: 1px; background: var(--color-antique); }
+#galeri .gallery-heading p { margin: .2vw auto 0; font-size: clamp(22px,2.05vw,42px); line-height: 1.2; }
+#galeri .gallery-pages { margin-top: 2.65vw; }
+#galeri .gallery-spread {
+    display: grid;
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: var(--gallery-gap);
+}
+#galeri .gallery-spread + .gallery-spread { margin-top: var(--gallery-gap); }
+#galeri .spread-4 { grid-template-columns: minmax(0,1.66fr) minmax(0,1fr) minmax(0,1.13fr); grid-template-rows: repeat(2,minmax(0,1fr)); aspect-ratio: 1522/575; }
+#galeri .spread-4 > :nth-child(-n+2) { grid-row: span 2; }
+#galeri .spread-1 { grid-template-columns: minmax(0,1fr); max-width: 43rem; margin-inline: auto; }
+#galeri .spread-2 { grid-template-columns: repeat(2,minmax(0,1fr)); }
+#galeri .gallery-print {
+    min-width: 0;
+    min-height: 0;
+    position: relative;
+    padding: clamp(5px,.7vw,15px);
+    background: #fff5e9;
+    box-shadow: inset 0 0 0 1px #e2c99c, 0 2px 5px #57391636;
+}
+#galeri .gallery-spread:not(.spread-4) .gallery-print { aspect-ratio: 1.16; }
+#galeri .gallery-photo { display: block; width: 100%; height: 100%; object-fit: cover; }
+#galeri .gallery-corner { position: absolute; width: clamp(21px,2.5vw,54px); height: auto; pointer-events: none; }
+#galeri .tl { left: 0; top: 0; }
+#galeri .tr { right: 0; top: 0; transform: scaleX(-1); }
+#galeri .bl { left: 0; bottom: 0; transform: scaleY(-1); }
+#galeri .br { right: 0; bottom: 0; transform: scale(-1); }
+#galeri .gallery-empty { text-align: center; }
+@media (max-width:899px) {
+    #invitationContent #galeri { padding-block: 30px 42px; }
+    #galeri .gallery-pages { margin-top: 26px; }
+    #galeri .gallery-spread:not(.spread-1) { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    #galeri .spread-4 { aspect-ratio: auto; grid-template-rows: auto; }
+    #galeri .spread-4 > :nth-child(-n+2) { grid-row: auto; }
+    #galeri .gallery-print { aspect-ratio: 1.16; }
+    #galeri .spread-3 > :last-child { grid-column: 1/-1; width: calc((100% - var(--gallery-gap))/2); justify-self: center; }
+}
+@media (max-width:640px) {
+    #invitationContent #galeri { padding-inline: 6%; }
+    #galeri .gallery-spread:not(.spread-1) { grid-template-columns: minmax(0,1fr); }
+    #galeri .spread-3 > :last-child { width: 100%; }
+    #galeri .gallery-heading p { max-width: 27ch; }
+    #galeri .gallery-divider { margin: 6px auto; gap: 12px; }
+    #galeri .gallery-divider img { width: 86px; }
+    #galeri .gallery-divider::before, #galeri .gallery-divider::after { width: 12%; }
+    #galeri::before, #galeri::after { width: 16%; }
+}

@@ -32,17 +32,17 @@ class GaleriForm
                     ->placeholder('Contoh: Foto Prewedding 1'),
 
                 FileUpload::make('foto')
-    ->label('Upload Foto')
-    ->acceptedFileTypes([
-        'image/jpeg',
-        'image/png',
-        'image/webp',
-    ])
-    ->image()
-    ->disk('public')
-    ->directory('galeri')
-    ->imageEditor()
-    ->required(),
+                    ->label('Foto galeri')->columnSpanFull()
+                    ->acceptedFileTypes([
+                        'image/jpeg',
+                        'image/png',
+                        'image/webp',
+                    ])
+                    ->image()
+                    ->disk('public')
+                    ->directory('galeri')
+                    ->imagePreviewHeight('220')->imageEditor()
+                    ->required(),
                 Textarea::make('deskripsi')
                     ->label('Deskripsi')
                     ->columnSpanFull(),

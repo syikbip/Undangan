@@ -3,6 +3,8 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\Dashboard;
+use App\Models\UndanganAktif;
+use Filament\FontProviders\GoogleFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -26,12 +28,16 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->bootUsing(fn () => app()->setLocale('id'))
             ->viteTheme('resources/css/filament/admin/theme.css')
-            ->brandName('Idham & Ketrin')
-            ->brandLogo(asset('images/wedding-monogram.svg'))
-            ->brandLogoHeight('2.5rem')
-            ->favicon(asset('images/wedding-favicon.svg'))
-            ->font('Instrument Sans')
+            ->brandName(function (): string {
+                $couple = once(fn () => UndanganAktif::acaraAktif()?->mempelai);
+
+                return $couple ? $couple->nama_pria.' & '.$couple->nama_wanita : 'Admin Undangan';
+            })
+            ->brandLogo(fn (): View => view('filament.components.admin-brand'))
+            ->font('Source Sans 3', provider: GoogleFontProvider::class)
+            ->serifFont('Cormorant Garamond', provider: GoogleFontProvider::class)
             ->renderHook(
                 PanelsRenderHook::TOPBAR_START,
                 fn (): View => view('filament.components.admin-topbar', [
@@ -40,19 +46,7 @@ class AdminPanelProvider extends PanelProvider
             )
             ->login()
             ->colors([
-                'primary' => [
-                    50 => '#faf7f0',
-                    100 => '#f3ead7',
-                    200 => '#e9d8b8',
-                    300 => '#dcc394',
-                    400 => '#c9a96f',
-                    500 => '#b58e56',
-                    600 => '#987344',
-                    700 => '#795a38',
-                    800 => '#624a32',
-                    900 => '#513e2c',
-                    950 => '#2e241a',
-                ],
+                'primary' => \Filament\Support\Colors\Color::hex('#681C25'),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')

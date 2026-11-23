@@ -9,6 +9,7 @@ use App\Filament\Resources\Rsvps\RsvpResource;
 use App\Filament\Resources\Tamus\TamuResource;
 use App\Filament\Resources\Ucapans\UcapanResource;
 use App\Models\Acara;
+use App\Models\UndanganAktif;
 use App\Models\Galeri;
 use App\Models\Mempelai;
 use App\Models\Rsvp;
@@ -27,15 +28,7 @@ class WeddingOverview extends Widget
 
     protected function getViewData(): array
     {
-        $event = Acara::query()
-            ->whereDate('tanggal', '>=', now()->toDateString())
-            ->orderBy('tanggal')
-            ->orderBy('waktu_mulai')
-            ->first()
-            ?? Acara::query()
-                ->orderByDesc('tanggal')
-                ->orderByDesc('waktu_mulai')
-                ->first();
+        $event = UndanganAktif::acaraAktif();
 
         return [
             'event' => $event,
@@ -65,7 +58,7 @@ class WeddingOverview extends Widget
                     'url' => TamuResource::getUrl('index'),
                 ],
                 [
-                    'label' => 'RSVP',
+                    'label' => 'Jumlah respons RSVP',
                     'value' => Rsvp::query()->count(),
                     'icon' => Heroicon::OutlinedClipboardDocumentCheck,
                     'url' => RsvpResource::getUrl('index'),

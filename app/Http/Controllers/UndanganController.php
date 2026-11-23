@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mempelai;
-use App\Models\Acara;
+use App\Models\UndanganAktif;
 use App\Models\Galeri;
 use App\Models\Ucapan;
 
@@ -11,24 +10,26 @@ class UndanganController extends Controller
 {
     public function index()
     {
-        $mempelai = Mempelai::first();
-
-        $acaras = Acara::orderBy('tanggal')
-            ->orderBy('waktu_mulai')
-            ->get();
+        $akad = UndanganAktif::acaraAktif();
+        if (! $akad) {
+            return view('undangan-belum-aktif');
+        }
+        session(['undangan_acara_id' => $akad->id]);
+        $mempelai = $akad->mempelai;
 
         $galeris = Galeri::where('mempelai_id', $mempelai?->id)
             ->latest()
             ->get();
 
         $ucapans = Ucapan::with('tamu')
+            ->where('acara_id', $akad->id)
             ->where('is_approved', true)
-            ->latest()
-            ->get();
+            ->latest()->orderByDesc('id')
+            ->simplePaginate(10, ['*'], 'buku')->withQueryString()->fragment('ucapan');
 
         return view('undangan', compact(
             'mempelai',
-            'acaras',
+            'akad',
             'galeris',
             'ucapans'
         ));

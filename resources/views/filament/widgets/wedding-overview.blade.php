@@ -8,27 +8,18 @@
 @endphp
 
 <div class="wedding-overview">
-    <header class="wedding-overview__header">
-        <div>
-            <span class="wedding-overview__eyebrow">Wedding management</span>
-            <h2 class="wedding-overview__title">Idham <span>&</span> Ketrin</h2>
-            <p class="wedding-overview__description">Kelola setiap momen istimewa dalam satu ruang.</p>
-        </div>
-
-    </header>
-
     <section class="wedding-overview__hero">
         <div>
-            <span class="wedding-overview__eyebrow">Hari bahagia kita</span>
-            <h3>Idham & Ketrin</h3>
+            <span class="wedding-overview__eyebrow">Undangan aktif</span>
+            <h3>{{ $event?->mempelai ? $event->mempelai->nama_pria.' & '.$event->mempelai->nama_wanita : 'Belum ada undangan aktif' }}</h3>
             <p>
                 @if ($event)
                     {{ $event->nama_acara }}{{ $eventIsUpcoming ? ' akan berlangsung' : ' telah berlangsung' }}.
                     @if (filled($event->lokasi))
-                        Sampai jumpa di {{ $event->lokasi }}.
+                        {{ $event->lokasi }}.
                     @endif
                 @else
-                    Tambahkan data acara untuk menampilkan jadwal pernikahan di sini.
+                    Pilih pasangan dan acara di menu Undangan Aktif.
                 @endif
             </p>
         </div>
@@ -42,6 +33,7 @@
         </div>
     </section>
 
+    <h2 class="wedding-summary-title">Ringkasan seluruh undangan</h2>
     <section class="wedding-stats" aria-label="Ringkasan data">
         @foreach ($stats as $stat)
             <a
@@ -79,8 +71,12 @@
                     </span>
                     <strong class="wedding-rsvp-row__count">
                         {{ number_format($attendingResponses, 0, ',', '.') }}
-                        <span>respons · {{ number_format($attendingGuests, 0, ',', '.') }} tamu</span>
+                        <span>respons</span>
                     </strong>
+                </div>
+                <div class="wedding-rsvp-row">
+                    <span class="wedding-rsvp-row__status"><x-filament::icon icon="heroicon-o-users" /> Jumlah orang hadir</span>
+                    <strong class="wedding-rsvp-row__count">{{ number_format($attendingGuests, 0, ',', '.') }} <span>orang</span></strong>
                 </div>
                 <div class="wedding-rsvp-row">
                     <span class="wedding-rsvp-row__status">

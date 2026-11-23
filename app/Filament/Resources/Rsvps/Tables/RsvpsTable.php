@@ -15,15 +15,19 @@ class RsvpsTable
     {
         return $table
             ->columns([
-                TextColumn::make('tamu_id')
-                    ->numeric()
+                TextColumn::make('tamu.nama')
+                    ->label('Nama tamu')->wrap()->searchable()
                     ->sortable(),
-                TextColumn::make('acara_id')
-                    ->numeric()
+                TextColumn::make('acara.nama_acara')
+                    ->label('Acara')->wrap()->searchable()
                     ->sortable(),
                 TextColumn::make('status')
-                    ->badge(),
-                TextColumn::make('jumlah_hadir')
+                    ->badge()->formatStateUsing(fn (string $state) => match ($state) {
+                        'hadir' => 'Hadir',
+                        'tidak_hadir' => 'Berhalangan',
+                        default => ucfirst(str_replace('_', ' ', $state)),
+                    })->color(fn (string $state) => $state === 'hadir' ? 'success' : 'gray'),
+                TextColumn::make('jumlah_hadir')->label('Jumlah orang hadir')->alignEnd()
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')

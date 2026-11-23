@@ -1,0 +1,159 @@
+@import './invitation-closing.css';
+@import './invitation-guestbook.css';
+@import './invitation-event.css';
+@import './invitation-gallery.css';
+@import './invitation-story.css';
+@import './invitation-couple.css';
+@import './invitation-letter.css';
+@import './invitation-album.css';
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.cover, #invitationContent {
+    --color-ivory: #F7EFDF;
+    --color-espresso: #352318;
+    --color-burgundy: #681C25;
+    --color-antique: #A67C3D;
+    --color-champagne: #E2C99C;
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Source Sans 3', sans-serif;
+}
+.cover {
+    --foil: #ad853b;
+    --arch: 50% 50% 0 0 / 42% 42% 0 0;
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    overflow: auto;
+    padding: clamp(8px, 2vw, 30px);
+    background: #e6dacc;
+    color: #2e1b14;
+    text-align: center;
+    font: 500 18px/1.25 var(--font-display);
+    transition: opacity .35s;
+}
+body:has(.cover):not(.invitation-open) { overflow: hidden; }
+.cover[hidden] { display: none; }
+.invitation-open .cover { opacity: 0; pointer-events: none; }
+.cover .stationery {
+    position: relative;
+    isolation: isolate;
+    width: min(100%, 440px);
+    margin: auto;
+    padding: 24px 6% 30px;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    background: #fbf2e5 url('/assets/wedding/ivory-paper-texture.webp') center / 600px;
+    box-shadow: 0 8px 18px #523b2430, 0 1px 3px #523b2438;
+}
+.cover .stationery::before, .cover .stationery::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    inset: 7px;
+    border: 1px solid var(--foil);
+}
+.cover .stationery::after { inset: 11px; opacity: .7; }
+.cover .crest {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    color: #65131c;
+    font: 500 clamp(38px, 10vw, 48px)/1 'Bodoni Moda', Georgia, serif;
+}
+.cover .crest span + span { margin-left: -.13em; transform: translateY(.13em); }
+.cover .crest::before, .cover .crest::after {
+    content: '';
+    width: .9em;
+    height: .65em;
+    margin: 0 .08em;
+    background: url('/assets/wedding/couple-gold-branch.webp') center / contain no-repeat;
+}
+.cover .crest::before { transform: rotate(28deg); }
+.cover .crest::after { transform: scaleX(-1) rotate(28deg); }
+.cover .kicker, .cover .date { text-transform: uppercase; letter-spacing: .18em; font-weight: 700; }
+.cover .kicker { font-size: clamp(13px, 3.8vw, 17px); margin: 15px 0 20px; }
+.cover .portrait {
+    position: relative;
+    width: 84%;
+    max-width: 310px;
+    border: 1px solid var(--foil);
+    padding: 5px;
+    border-radius: var(--arch);
+}
+.cover .arch { display: flex; aspect-ratio: .82; overflow: hidden; border-radius: var(--arch); background: #e9dbc5; }
+.cover .arch img { display: block; width: 50%; height: 100%; object-fit: cover; object-position: center; }
+.cover .arch img.together { width: 100%; }
+.cover .flower { pointer-events: none; position: absolute; object-fit: contain; }
+.cover .flower-top { width: 53%; top: -4%; left: -14%; }
+.cover .flower-base { width: 40%; bottom: -6%; right: -9%; }
+.cover .flower-corner { display: none; }
+.cover .details { min-width: 0; width: 100%; overflow-wrap: anywhere; }
+.cover h1 { margin-top: 20px; font: 500 clamp(33px, 10.5vw, 48px)/1.16 'Bodoni Moda', Georgia, serif; letter-spacing: -.055em; }
+.cover h1 i { color: var(--foil); font: 500 italic 1.2em/.8 var(--font-display); }
+.cover .date { margin: 10px auto 0; font-size: clamp(12px, 3.3vw, 16px); }
+.cover .rule { width: 55%; margin: 18px auto 14px; display: flex; align-items: center; gap: 4px; color: var(--foil); }
+.cover .rule::before, .cover .rule::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, currentColor); }
+.cover .rule::after { transform: scaleX(-1); }
+.cover .rule b { width: 7px; height: 7px; transform: rotate(45deg); background: currentColor; }
+.cover .rule-first { display: none; }
+.cover .guest { line-height: 1.15; font-size: clamp(19px, 5.4vw, 23px); }
+.cover .guest strong { display: block; font-weight: 500; font-style: italic; }
+.cover .open-button {
+    --cut: polygon(4% 0,96% 0,100% 20%,100% 80%,96% 100%,4% 100%,0 80%,0 20%);
+    position: relative;
+    isolation: isolate;
+    cursor: pointer;
+    border: 0;
+    color: #fff4df;
+    background: var(--foil);
+    clip-path: var(--cut);
+    padding: .38em 1.55em;
+    min-height: 46px;
+    margin-top: 24px;
+    font: 500 clamp(22px, 6.1vw, 27px)/1.18 var(--font-display);
+}
+.cover .open-button::before, .cover .open-button::after { content: ''; position: absolute; clip-path: var(--cut); z-index: -1; }
+.cover .open-button::before { inset: 2px; background: #e8c578; }
+.cover .open-button::after { inset: 4px; background: #65131c; }
+.cover .open-button:hover::after { background: #50121a; }
+.cover .open-button:focus-visible span { text-decoration: underline; text-underline-offset: .15em; }
+@media (min-width: 850px) {
+    .cover .stationery {
+        width: min(100%, 1390px, 147vh);
+        aspect-ratio: 1.63;
+        padding: 4% 5.3%;
+        grid-template-columns: 49% minmax(0, 1fr);
+        grid-template-rows: 1fr auto auto 1fr;
+        column-gap: 4%;
+        container-type: inline-size;
+    }
+    .cover .portrait { grid-area: 1/1/5/2; width: 100%; max-width: none; padding: 1cqw; }
+    .cover .arch { aspect-ratio: .84; }
+    .cover .flower-top { width: 55%; left: -8%; top: -4%; transform: rotate(-7deg); }
+    .cover .flower-base { width: 47%; right: -13%; bottom: -6%; }
+    .cover .flower-corner { display: block; width: 16%; right: 2%; bottom: 3%; }
+    .cover .crest { grid-area: 1/2; align-self: end; font-size: 6cqw; }
+    .cover .kicker { grid-area: 2/2; margin: 3.4cqw 0 0; font-size: 2cqw; }
+    .cover .details { grid-area: 3/2; }
+    .cover .rule { width: 60%; margin: 2.8cqw auto; }
+    .cover .rule-first { display: flex; }
+    .cover h1 { margin: 0; font-size: 6.5cqw; }
+    .cover .date { margin-top: 2.3cqw; font-size: 1.9cqw; }
+    .cover .guest { font-size: 2.6cqw; }
+    .cover .open-button { margin-top: 3.7cqw; font-size: 3cqw; }
+}
+@media (prefers-reduced-motion: reduce) { .cover { transition: none; } }
+
+#invitationContent :is(.letter-message, .couple-intro, .story-prose blockquote, .gallery-heading p, .akad-intro, .guestbook header p, .closing-message) {
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+@media (max-width: 899px) {
+    #invitationContent .letter-message { white-space: normal; }
+}
+@media (max-width: 640px) {
+    #invitationContent :is(.couple-intro, .closing-message) { white-space: normal; }
+}

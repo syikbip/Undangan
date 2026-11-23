@@ -8,6 +8,7 @@ class Ucapan extends Model
 {
     protected $fillable = [
         'tamu_id',
+        'acara_id',
         'pesan',
         'is_approved',
     ];

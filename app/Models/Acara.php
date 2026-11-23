@@ -14,6 +14,7 @@ class Acara extends Model
         'waktu_selesai',
         'lokasi',
         'alamat',
+        'maps_url',
     ];
 
     public function mempelai()

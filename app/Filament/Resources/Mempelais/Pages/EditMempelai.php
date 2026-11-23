@@ -11,6 +11,13 @@ class EditMempelai extends EditRecord
 {
     protected static string $resource = MempelaiResource::class;
 
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        $data['teks_undangan'] = $this->getRecord()->teksUndangan();
+
+        return $data;
+    }
+
     protected function getHeaderActions(): array
     {
         return [

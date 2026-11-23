@@ -22,7 +22,7 @@ class AcaraResource extends Resource
 
     protected static ?string $modelLabel = 'Data Acara';
 
-    protected static ?string $pluralModelLabel = 'Data Acara';
+    protected static ?string $pluralModelLabel = 'Acara Pernikahan';
 
     protected static ?string $navigationLabel = 'Data Acara';
 

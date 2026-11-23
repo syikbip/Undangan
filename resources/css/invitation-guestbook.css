@@ -1,0 +1,69 @@
+#invitationContent #rsvp {
+    --wine: #691625;
+    --foil: #ad833a;
+    --u: clamp(.66px,.06906vw,1px);
+    position: relative;
+    isolation: isolate;
+    padding: calc(54 * var(--u)) 6% calc(65 * var(--u));
+    background: url('/assets/wedding/rsvp-lily-left.webp') left 1.6% top 5% / 14.4% auto no-repeat,
+        url('/assets/wedding/rsvp-lily-bottom-right.webp') right 1.7% bottom 10% / 14% auto no-repeat,
+        #faf0e2 url('/assets/wedding/ivory-paper-texture.webp') center / 540px;
+    color: #40261d;
+    font: 500 calc(29 * var(--u))/1.18 var(--font-display);
+}
+.guestbook::before {
+    content: ''; position: absolute; inset: 1.8% 1.5%; z-index: -1; pointer-events: none;
+    border: 38px solid transparent;
+    border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cpath d='M39 1H81Q85 13 98 17Q100 31 119 38V82Q101 89 98 103Q85 106 81 119H39Q34 107 22 103Q19 89 1 82V38Q19 30 22 17Q35 13 39 1Z' fill='none' stroke='%23a57930' stroke-width='2'/%3E%3C/svg%3E") 40 stretch;
+}
+.guestbook header, .guestbook-entries { text-align: center; }
+#invitationContent .guestbook h2, #invitationContent .guestbook h3, .guestbook h4 { color:var(--wine); font-family:var(--font-display); font-weight:600; font-style:italic; }
+#invitationContent .guestbook h2 { font-size:calc(75 * var(--u)); line-height:1.12; }
+.guestbook-divider { display:flex; align-items:center; justify-content:center; gap:6px; margin:calc(5 * var(--u)) auto calc(13 * var(--u)); }
+.guestbook-divider img { width:calc(128 * var(--u)); height:calc(53 * var(--u)); }
+.guestbook-divider::before,.guestbook-divider::after { content:''; width:calc(133 * var(--u)); border-top:2px solid var(--foil); }
+.guestbook header p { font-size:calc(32 * var(--u)); }
+.guestbook-form { width:min(100%,calc(976 * var(--u))); margin:calc(32 * var(--u)) auto 0; padding:calc(20 * var(--u)) calc(44 * var(--u)) calc(27 * var(--u)); border:2px solid #bc934e; border-radius:calc(25 * var(--u)); background:rgb(255 249 241 / 38%); }
+.guestbook-fields { display:grid; grid-template-columns:1.26fr 1fr; gap:4%; }
+#rsvp .guestbook-form label, #rsvp .guestbook-form legend { font-weight:700; margin-bottom:0; }
+#rsvp .guestbook-form label span { font-weight:500; }
+#rsvp .guestbook-form input:not([type=radio],[type=hidden]), #rsvp .guestbook-form select, #rsvp .guestbook-form textarea {
+    display:block; width:100%; margin-top:calc(9 * var(--u)); border:1.5px solid #a78d7c;
+    border-radius:9px; height:max(44px,calc(56 * var(--u))); padding:0 .78em; background:#fbf7f1d9; color:inherit;
+    font:500 calc(28 * var(--u))/1.2 var(--font-display);
+}
+#rsvp .guestbook-attendance { border:0; display:flex; align-items:center; flex-wrap:wrap; gap:.4em 1.7em; margin:calc(25 * var(--u)) 0 calc(24 * var(--u)); }
+#rsvp .guestbook-attendance legend { float:left; margin-right:calc(22 * var(--u)); padding: .2em 0; }
+#rsvp .guestbook-attendance label { display:inline-flex; align-items:center; gap:.5em; min-height:44px; font-weight:500; }
+#rsvp .guestbook-attendance input { min-height:0; padding:0; margin:0; accent-color:var(--wine); width:calc(30 * var(--u)); height:calc(30 * var(--u)); }
+#rsvp .guestbook-form textarea { height:calc(108 * var(--u)); min-height:84px; resize:vertical; padding:.35em .78em; }
+.guestbook-form textarea::placeholder, #guest-hint { font-style:italic; }
+#guest-hint { margin-top:4px; font-size:max(17px,calc(23 * var(--u))); }
+#invitationContent .guestbook-form button { display:block; width:min(100%,calc(325 * var(--u))); height:max(44px,calc(59 * var(--u))); margin:calc(28 * var(--u)) auto 0; border:0; border-radius:11px; background:var(--wine); color:#fff7ea; font:500 calc(34 * var(--u))/1 var(--font-display); }
+#invitationContent .guestbook-form button:hover { background:#57121e; }
+.guestbook-form button:disabled { opacity:.75; }
+.guestbook-feedback:not(:empty), .guestbook-form small:not(:empty) { display:block; margin-top:7px; font-size:1.1rem; color:var(--wine); }
+.guestbook-form small:empty, .guestbook-feedback:empty { display:none; }
+.guestbook-entries { width:min(100%,calc(1044 * var(--u))); margin:calc(28 * var(--u)) auto 0; }
+#invitationContent .guestbook h3 { font-size:calc(58 * var(--u)); line-height:1.15; }
+.guestbook-entries h3::after { content:''; display:block; width:89%; margin:calc(11 * var(--u)) auto calc(31 * var(--u)); border-top:2px solid var(--foil); }
+.guestbook-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); row-gap:24px; text-align:left; }
+.guestbook-list article { min-width:0; padding-right:7%; }
+.guestbook-list article:nth-child(even) { border-left:1px solid var(--foil); padding:0 0 0 10%; }
+.guestbook h4 { font-size:calc(39 * var(--u)); }
+.guestbook-list article p { font-size:calc(29 * var(--u)); font-style:italic; white-space:pre-line; }
+.guestbook-empty { grid-column:1/-1; text-align:center; }
+.guestbook-entries nav { display:flex; justify-content:center; gap:2rem; margin-top:1em; }
+.guestbook-entries nav a { text-decoration:underline !important; }
+@media (max-width:640px) {
+    #invitationContent #rsvp { padding:40px 7% 46px; font-size:20px; }
+    .guestbook::before { inset:10px 8px; border-width:20px; }
+    #invitationContent .guestbook h2 { font-size:clamp(36px,9vw,50px); }
+    .guestbook-form { padding:19px 16px; margin-top:22px; }
+    .guestbook-fields, .guestbook-list { grid-template-columns:1fr; gap:16px; }
+    #rsvp .guestbook-attendance { margin:16px 0; display:grid; gap:0; }
+    #rsvp .guestbook-attendance legend { float:none; }
+    .guestbook-list article:nth-child(n) { border:0; padding:0; }
+    .guestbook-list article+article { border-top:1px solid var(--foil) !important; padding-top:12px !important; }
+    .guestbook-entries { margin-top:24px; }
+}

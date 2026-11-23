@@ -1,0 +1,53 @@
+/* Styles for the seven pages inside the invitation. */
+#invitationContent {
+    --page-space: clamp(3.25rem, 6vw, 6rem);
+    --inset: max(6vw, calc((100vw - 68rem) / 2));
+    --line: 1px solid var(--color-champagne);
+    background: var(--color-ivory) url('/images/invitation-grain.svg');
+    color: var(--color-espresso);
+    font: 400 clamp(1rem, 1.2vw, 1.125rem)/1.6 var(--font-sans);
+    overflow-wrap: anywhere;
+    &[inert] { display: none; }
+    :focus-visible { outline: 2px solid var(--color-burgundy); outline-offset: 4px; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    .section { padding: var(--page-space) var(--inset); }
+    .section-heading { max-width: 60ch; margin: 0 auto 2rem; text-align: center; }
+    h2, h3 { font-family: var(--font-display); }
+    h2 { font-size: clamp(2.25rem, 4vw, 3.5rem); line-height: 1.08; font-weight: 600; }
+    h3 { font-size: clamp(1.875rem, 3vw, 2.5rem); line-height: 1.15; font-weight: 500; }
+    .intro { margin: .8rem auto 0; max-width: 55ch; }
+    .event-section { border-block: var(--line); background: #f0e6d4; }
+    .event-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; }
+    .event-card { flex: 0 1 32rem; padding: clamp(1.5rem, 4vw, 3rem); background: var(--color-ivory); border: var(--line); border-left: 3px double var(--color-antique); }
+    .event-card h3 { text-transform: capitalize; color: var(--color-burgundy); padding-bottom: .7rem; margin-bottom: .9rem; border-bottom: var(--line); }
+    .event-card p + p { margin-top: 1rem; }
+    .event-card a, .gold-button { display: inline-flex; align-items: center; justify-content: center; margin-top: 1.2rem; padding: .5rem 1.4rem; border: 1px solid var(--color-antique); min-height: 44px; }
+    .event-card a:hover { background: var(--color-champagne); }
+    .countdown-section { background: var(--color-burgundy); color: var(--color-ivory); text-align: center; padding-block: clamp(2.25rem, 4vw, 4rem); }
+    .countdown-section h2 { font-size: clamp(2rem, 3vw, 2.75rem); }
+    .countdown { width: min(100%, 42rem); margin: 1.5rem auto 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .count-box + .count-box { border-left: 1px solid #aa7f66; }
+    .count-box strong { display: block; font: 500 clamp(2.1rem, 5vw, 4rem)/1 var(--font-display); font-variant-numeric: lining-nums tabular-nums; }
+    .count-box span { font-size: .9rem; color: var(--color-champagne); }
+    .form-card, .wishes-list { max-width: 38rem; margin: auto; }
+    .form-card { background: #fff9ee; border: var(--line); padding: clamp(1.25rem, 4vw, 3rem); }
+    .rsvp-section .form-card { border-top: 4px double var(--color-antique); }
+    .form-group { margin-bottom: 1rem; }
+    label { display: block; font-weight: 600; margin-bottom: .3rem; }
+    input, select, textarea { width: 100%; min-height: 44px; border: 1px solid #ae9673; border-radius: 2px; background: #fffdf7; color: inherit; padding: .65rem .8rem; }
+    textarea { resize: vertical; }
+    .gold-button { background: var(--color-burgundy); color: var(--color-ivory); margin-top: .25rem; font: 600 1.35rem var(--font-display); }
+    .gold-button:hover { background: #50151c; }
+    .success-message { border-left: 2px solid var(--color-antique); padding: .6rem 1rem; margin-bottom: 1rem; }
+    .error-message { color: var(--color-burgundy); }
+    .wishes-section { border-top: var(--line); }
+    .wishes-list { margin-top: 2rem; }
+    .wish-card { border-bottom: var(--line); padding: 1rem 0; }
+    .wish-card h3 { font-size: 1.6rem; color: var(--color-burgundy); }
+    .wish-card p { white-space: pre-line; }
+    @media (max-width: 639px) {
+        .gold-button { width: 100%; }
+    }
+}

@@ -6,7 +6,6 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -16,11 +15,14 @@ class UcapansTable
     {
         return $table
             ->columns([
-                TextColumn::make('tamu_id')
-                    ->numeric()
-                    ->sortable(),
-                IconColumn::make('is_approved')
-                    ->boolean(),
+                TextColumn::make('tamu.nama')
+                    ->label('Nama tamu')->wrap()->searchable()->sortable(),
+                TextColumn::make('pesan')
+                    ->label('Ucapan')->wrap()->extraAttributes(['class' => 'wedding-greeting']),
+                TextColumn::make('is_approved')
+                    ->label('Moderasi')->badge()
+                    ->formatStateUsing(fn ($state) => $state ? 'Disetujui' : 'Menunggu')
+                    ->color(fn ($state) => $state ? 'success' : 'warning'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

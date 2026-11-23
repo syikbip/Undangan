@@ -1,0 +1,91 @@
+#invitationContent #mempelai {
+    --portrait-width: min(18.6vw, 400px);
+    position: relative;
+    isolation: isolate;
+    text-align: center;
+    padding: min(1.75vw, 40px) 0 min(2.85vw, 67px);
+    background: #faf0e2 url('/assets/wedding/ivory-paper-texture.webp') repeat;
+    background-color: #f9eddd;
+    background-blend-mode: multiply;
+    color: #30170f;
+    font-family: var(--font-display);
+}
+#mempelai::before {
+    content: '';
+    position: absolute;
+    inset: .4% 0 auto auto;
+    width: min(18.06%, 390px);
+    aspect-ratio: 302/770;
+    background: url('/assets/wedding/couple-lily-embossed.webp') right top / contain no-repeat;
+    z-index: -1;
+    pointer-events: none;
+}
+#invitationContent #mempelai h2 {
+    font: 500 min(4.65vw, 98px)/1.03 var(--font-display);
+}
+#mempelai .couple-divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: min(2.05vw, 42px);
+    margin: .5vw auto;
+}
+.couple-divider img { width: min(10.95vw, 230px); height: auto; }
+.couple-divider::before, .couple-divider::after {
+    content: '';
+    width: min(19vw, 400px);
+    height: 1px;
+    background: #c48b37;
+}
+#mempelai .couple-intro {
+    margin: 0 auto;
+    font-size: min(2.84vw, 60px);
+    font-weight: 500;
+    line-height: 1.06;
+}
+.couple-intro span { display: block; }
+#mempelai .couple-portraits {
+    display: grid;
+    grid-template-columns: var(--portrait-width) min(17.7vw, 380px) var(--portrait-width);
+    justify-content: center;
+    align-items: start;
+    margin-top: min(2.4vw, 50px);
+}
+.couple-portrait { min-width: 0; }
+.portrait-mount {
+    position: relative;
+    aspect-ratio: .84;
+    padding: 3.9%;
+    background: #fff5e9;
+    box-shadow: 0 2px 6px #613b1933;
+}
+.portrait-mount .couple-photo { width: 100%; height: 100%; display: block; object-fit: cover; }
+.portrait-groom .couple-photo { object-position: 54% 88%; object-view-box: inset(10% 7% 0); }
+.portrait-bride .couple-photo { object-position: 52% 85%; object-view-box: inset(8% 5% 0); }
+.portrait-mount .mount-corner { position: absolute; width: 12.5%; height: auto; pointer-events: none; }
+.portrait-mount .corner-tl { left: 0; top: 0; }
+.portrait-mount .corner-tr { right: 0; top: 0; transform: scaleX(-1); }
+.portrait-mount .corner-bl { left: 0; bottom: 0; transform: scaleY(-1); }
+.portrait-mount .corner-br { right: 0; bottom: 0; transform: scale(-1); }
+.couple-portrait figcaption { color: #6b1720; font: italic 500 min(4.85vw, 100px)/1.1 var(--font-display); margin-top: .55vw; }
+.couple-separator { width: min(6.46vw, 138px); height: auto; justify-self: center; margin-top: min(7vw, 151px); }
+@media (min-width: 641px) and (max-width: 999px) {
+    #invitationContent #mempelai { --portrait-width: 25vw; padding-block: 30px 40px; }
+    #invitationContent #mempelai h2 { font-size: 44px; }
+    #mempelai .couple-intro { font-size: clamp(22px,3.15vw,32px); }
+    .couple-portrait figcaption { font-size: 42px; }
+    .couple-separator { margin-top: 11vw; }
+}
+@media (max-width: 640px) {
+    #invitationContent #mempelai { padding: 36px 6% 44px; }
+    #invitationContent #mempelai h2 { font-size: 44px; }
+    #mempelai::before { width: 21%; top: 0; opacity: .55; }
+    #mempelai .couple-divider { gap: 12px; margin: 8px auto 16px; }
+    .couple-divider img { width: 76px; }
+    .couple-divider::before, .couple-divider::after { width: 17%; }
+    #mempelai .couple-intro { max-width: 35ch; font-size: 23px; line-height: 1.25; }
+    .couple-intro span { display: inline; }
+    #mempelai .couple-portraits { grid-template-columns: min(65vw,290px); gap: 15px; margin-top: 26px; }
+    .couple-separator { width: 46px; margin: 0; }
+    .couple-portrait figcaption { margin-top: 7px; font-size: 46px; }
+}

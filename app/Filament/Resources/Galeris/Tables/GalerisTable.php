@@ -20,7 +20,8 @@ class GalerisTable
                     ->sortable(),
                 TextColumn::make('judul')
                     ->searchable(),
-                TextColumn::make('foto')
+                \Filament\Tables\Columns\ImageColumn::make('foto')->label('Foto')->disk('public')->visibility('public')->imageHeight(64)
+                    ->extraImgAttributes(['style' => 'object-fit: contain; max-width: 7rem'])
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()

@@ -1,0 +1,59 @@
+#invitationContent .wedding-closing {
+    --closing-gold: #e8c181;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: min(33.333vw, 47rem);
+    padding: clamp(2.75rem, 3.4vw, 4.8rem) 16% clamp(3rem, 3.9vw, 5.5rem);
+    overflow: hidden;
+    text-align: center;
+    color: #fff0db;
+    font-family: var(--font-display);
+    background:
+        url('/assets/wedding/footer-lily-left.webp') left top 56% / 14.65% auto no-repeat,
+        url('/assets/wedding/footer-lily-right.webp') right bottom 21% / 13.22% auto no-repeat,
+        #5b0f15 url('/assets/wedding/footer-burgundy-texture.webp') center / 512px repeat;
+}
+.wedding-closing::before {
+    content: '';
+    position: absolute;
+    inset: clamp(9px, .8vw, 18px) 0;
+    border-block: 2px solid #d5ac68;
+    pointer-events: none;
+}
+.closing-monogram { width: clamp(6.4rem, 9.76vw, 14rem); height: auto; }
+.closing-message {
+    margin-top: clamp(1.25rem, 1.65vw, 2.4rem);
+    max-width: 76rem;
+    font-size: clamp(1.65rem, 2.83vw, 4rem);
+    font-weight: 500;
+    line-height: 1.13;
+    letter-spacing: .015em;
+}
+.closing-message span { display: block; }
+.closing-signature {
+    margin-top: clamp(1rem, 1.7vw, 2.5rem);
+    color: var(--closing-gold);
+    font-size: clamp(2.8rem, 4.53vw, 6.4rem);
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.12;
+}
+.wedding-closing time {
+    margin-top: clamp(.8rem, 1.5vw, 2.2rem);
+    font-size: clamp(1.4rem, 2.13vw, 3rem);
+    line-height: 1.2;
+    letter-spacing: .04em;
+    font-variant-numeric: lining-nums;
+}
+@media (max-width: 640px) {
+    #invitationContent .wedding-closing { padding: 3rem 10% 3.25rem; background-position: left top 24%, right bottom 12%, center; }
+    .closing-message { text-wrap: balance; }
+    .closing-message span { display: inline; }
+}
+
+@media (min-width: 1024px) {
+    .closing-message, .wedding-closing time { transform: scaleX(1.13); }
+    .closing-signature { transform: scaleX(1.04); }
+}

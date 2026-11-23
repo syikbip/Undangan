@@ -22,7 +22,7 @@ class UcapanResource extends Resource
 
     protected static ?string $modelLabel = 'Ucapan dan Doa';
 
-    protected static ?string $pluralModelLabel = 'Ucapan dan Doa';
+    protected static ?string $pluralModelLabel = 'Buku Tamu';
 
     protected static ?string $navigationLabel = 'Ucapan dan Doa';
 

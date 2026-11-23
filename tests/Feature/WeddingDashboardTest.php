@@ -8,6 +8,7 @@ use App\Models\Mempelai;
 use App\Models\Rsvp;
 use App\Models\Tamu;
 use App\Models\Ucapan;
+use App\Models\UndanganAktif;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -35,6 +36,7 @@ class WeddingDashboardTest extends TestCase
             'lokasi' => 'Gedung Bahagia',
             'alamat' => 'Jalan Melati No. 10',
         ]);
+        UndanganAktif::pilih($event);
         $guest = Tamu::query()->create([
             'nama' => 'Ayu Pratiwi',
             'email' => 'ayu@example.test',
@@ -56,7 +58,7 @@ class WeddingDashboardTest extends TestCase
             'tamu_id' => $guest->id,
             'acara_id' => $event->id,
             'status' => 'hadir',
-            'jumlah_hadir' => 2,
+            'jumlah_hadir' => 3,
         ]);
         $otherGuest = Tamu::query()->create([
             'nama' => 'Budi Santoso',
@@ -87,13 +89,32 @@ class WeddingDashboardTest extends TestCase
             ->assertSee('Ayu Pratiwi')
             ->assertSee('Semoga menjadi keluarga yang bahagia.')
             ->assertSee('Ringkasan kehadiran')
+            ->assertSeeInOrder(['Jumlah orang hadir', '3', 'orang'])
             ->assertSee('Ucapan dan doa terbaru')
             ->assertSee('--cols-lg: repeat(1, minmax(0, 1fr))', false)
             ->assertSee('aria-label="Data Mempelai: 1"', false)
             ->assertSee('aria-label="Acara: 1"', false)
             ->assertSee('aria-label="Galeri Foto: 2"', false)
             ->assertSee('aria-label="Tamu Undangan: 2"', false)
-            ->assertSee('aria-label="RSVP: 2"', false)
+            ->assertSee('aria-label="Jumlah respons RSVP: 2"', false)
             ->assertSee('aria-label="Ucapan dan Doa: 1"', false);
+    }
+
+    public function test_admin_identity_follows_the_selected_invitation(): void
+    {
+        $this->withoutVite();
+        $this->actingAs(User::factory()->create());
+        $this->get('/admin')->assertOk()->assertSee('Belum ada undangan aktif')->assertSee('Admin Undangan');
+
+        foreach (['Raka', 'Fajar'] as $name) {
+            $couple = Mempelai::create(['nama_pria' => $name, 'nama_wanita' => 'Ayu']);
+            $event = Acara::create([
+                'mempelai_id' => $couple->id,
+                'nama_acara' => 'Akad',
+                'tanggal' => '2026-12-20',
+            ]);
+            UndanganAktif::pilih($event);
+            $this->get('/admin')->assertOk()->assertSee($name.' & Ayu');
+        }
     }
 }
