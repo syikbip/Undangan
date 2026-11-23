@@ -24,10 +24,8 @@
     position: fixed;
     inset: 0;
     z-index: 10000;
-    display: flex;
     overflow: auto;
-    padding: clamp(8px, 2vw, 30px);
-    background: #e6dacc;
+    background: var(--color-ivory);
     color: #2e1b14;
     text-align: center;
     font: 500 18px/1.25 var(--font-display);
@@ -39,14 +37,14 @@ body:has(.cover):not(.invitation-open) { overflow: hidden; }
 .cover .stationery {
     position: relative;
     isolation: isolate;
-    width: min(100%, 440px);
-    margin: auto;
+    width: 100%;
+    min-height: 100%;
+    align-content: center;
     padding: 24px 6% 30px;
     display: grid;
     justify-items: center;
     align-items: center;
     background: #fbf2e5 url('/assets/wedding/ivory-paper-texture.webp') center / 600px;
-    box-shadow: 0 8px 18px #523b2430, 0 1px 3px #523b2438;
 }
 .cover .stationery::before, .cover .stationery::after {
     content: '';
@@ -122,9 +120,8 @@ body:has(.cover):not(.invitation-open) { overflow: hidden; }
 .cover .open-button:focus-visible span { text-decoration: underline; text-underline-offset: .15em; }
 @media (min-width: 850px) {
     .cover .stationery {
-        width: min(100%, 1390px, 147vh);
-        aspect-ratio: 1.63;
-        padding: 4% 5.3%;
+        padding-block: clamp(24px, 5vh, 64px);
+        padding-inline: max(6%, calc((100% - min(1500px, 152dvh)) / 2));
         grid-template-columns: 49% minmax(0, 1fr);
         grid-template-rows: 1fr auto auto 1fr;
         column-gap: 4%;
