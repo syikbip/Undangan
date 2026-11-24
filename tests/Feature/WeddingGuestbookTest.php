@@ -67,6 +67,31 @@ class WeddingGuestbookTest extends TestCase
         $this->get('/?buku=2')->assertOk()->assertSee('Ucapan nomor 1.');
     }
 
+    public function test_guestbook_includes_approved_legacy_and_reception_messages_for_this_invitation(): void
+    {
+        $event = $this->createEvent();
+        $reception = $event->replicate();
+        $reception->nama_acara = 'Resepsi';
+        $reception->save();
+        $other = $event->replicate();
+        $other->mempelai_id = Mempelai::create(['nama_pria' => 'Lain', 'nama_wanita' => 'Lain'])->id;
+        $other->save();
+        $guest = Tamu::create(['nama' => 'Rani', 'kode_undangan' => (string) Str::uuid()]);
+
+        foreach ([
+            [null, true, 'Ucapan lama disetujui'],
+            [null, false, 'Ucapan lama tertunda'],
+            [$reception->id, true, 'Ucapan resepsi disetujui'],
+            [$other->id, true, 'Ucapan pasangan lain'],
+        ] as [$eventId, $approved, $message]) {
+            Ucapan::create(['acara_id' => $eventId, 'tamu_id' => $guest->id, 'pesan' => $message, 'is_approved' => $approved]);
+        }
+
+        $this->withoutVite()->get('/')->assertOk()
+            ->assertSee('Ucapan lama disetujui')->assertSee('Ucapan resepsi disetujui')
+            ->assertDontSee('Ucapan lama tertunda')->assertDontSee('Ucapan pasangan lain');
+    }
+
     public function test_public_submissions_are_rate_limited(): void
     {
         foreach (range(1,5) as $i) {

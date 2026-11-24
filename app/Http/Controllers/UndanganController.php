@@ -22,7 +22,7 @@ class UndanganController extends Controller
             ->get();
 
         $ucapans = Ucapan::with('tamu')
-            ->where('acara_id', $akad->id)
+            ->untukBukuTamu()
             ->where('is_approved', true)
             ->latest()->orderByDesc('id')
             ->simplePaginate(10, ['*'], 'buku')->withQueryString()->fragment('ucapan');

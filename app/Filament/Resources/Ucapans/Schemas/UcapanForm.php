@@ -2,8 +2,6 @@
 
 namespace App\Filament\Resources\Ucapans\Schemas;
 
-use App\Filament\Resources\Acaras\AcaraResource;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -15,9 +13,6 @@ class UcapanForm
     {
         return $schema
             ->components([
-                Select::make('acara_id')->label('Acara')
-                    ->options(fn () => AcaraResource::getEloquentQuery()->orderBy('tanggal')->pluck('nama_acara', 'id'))
-                    ->in(fn () => AcaraResource::getEloquentQuery()->pluck('id')->all())->searchable(),
                 TextInput::make('tamu_id')
                     ->required()
                     ->numeric(),
@@ -25,6 +20,7 @@ class UcapanForm
                     ->required()
                     ->columnSpanFull(),
                 Toggle::make('is_approved')
+                    ->label('Setujui untuk tampil di Buku Tamu')
                     ->required(),
             ]);
     }

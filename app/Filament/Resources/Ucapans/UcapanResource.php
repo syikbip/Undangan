@@ -11,7 +11,6 @@ use App\Filament\Resources\Ucapans\Schemas\UcapanInfolist;
 use App\Filament\Resources\Ucapans\Tables\UcapansTable;
 use App\Models\Ucapan;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\Acaras\AcaraResource;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -34,7 +33,7 @@ class UcapanResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->where(fn (Builder $query) => $query->whereIn('acara_id', AcaraResource::getEloquentQuery()->select('id'))->orWhereNull('acara_id'));
+        return parent::getEloquentQuery()->untukBukuTamu();
     }
 
     public static function form(Schema $schema): Schema
