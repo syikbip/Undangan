@@ -15,9 +15,6 @@ class AcarasTable
     {
         return $table
             ->columns([
-                TextColumn::make('mempelai_id')
-                    ->numeric()
-                    ->sortable(),
                 TextColumn::make('nama_acara')
                     ->searchable(),
                 TextColumn::make('tanggal')

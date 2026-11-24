@@ -6,6 +6,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
 use App\Models\Mempelai;
+use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
@@ -76,6 +78,24 @@ class MempelaiForm
                 Textarea::make('deskripsi')
                     ->label('Kisah Cinta')
                     ->columnSpanFull(),
+                Section::make('Tanda Kasih')->columnSpanFull()->schema([
+                    Section::make('Transfer Bank')->schema([
+                        Toggle::make('tanda_kasih.bank.active')->label('Aktifkan Transfer Bank')->live(),
+                        TextInput::make('tanda_kasih.bank.name')->label('Nama bank')->maxLength(150)
+                            ->required(fn (Get $get) => (bool) $get('tanda_kasih.bank.active')),
+                        TextInput::make('tanda_kasih.bank.recipient')->label('Nama pemilik rekening')->maxLength(150)
+                            ->required(fn (Get $get) => (bool) $get('tanda_kasih.bank.active')),
+                        TextInput::make('tanda_kasih.bank.number')->label('Nomor rekening')->inputMode('numeric')
+                            ->regex('/^[0-9]{5,64}$/D')->required(fn (Get $get) => (bool) $get('tanda_kasih.bank.active')),
+                    ]),
+                    Section::make('DANA')->schema([
+                        Toggle::make('tanda_kasih.dana.active')->label('Aktifkan DANA')->live(),
+                        TextInput::make('tanda_kasih.dana.recipient')->label('Nama penerima DANA')->maxLength(150)
+                            ->required(fn (Get $get) => (bool) $get('tanda_kasih.dana.active')),
+                        TextInput::make('tanda_kasih.dana.number')->label('Nomor DANA')->inputMode('numeric')
+                            ->regex('/^[0-9]{7,64}$/D')->required(fn (Get $get) => (bool) $get('tanda_kasih.dana.active')),
+                    ]),
+                ]),
                 Section::make('Teks undangan')
                     ->description('Atur kalimat untuk pasangan ini. Kosongkan kolom untuk menyembunyikan teks tersebut.')
                     ->columnSpanFull()

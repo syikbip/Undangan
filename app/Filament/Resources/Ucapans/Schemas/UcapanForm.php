@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Ucapans\Schemas;
 
+use App\Filament\Resources\Acaras\AcaraResource;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -13,11 +15,9 @@ class UcapanForm
     {
         return $schema
             ->components([
-                \Filament\Forms\Components\Select::make('acara_id')->label('Undangan')
-                    ->placeholder('Belum ditetapkan')
-                    ->options(fn () => \App\Models\Acara::with('mempelai')->get()->mapWithKeys(
-                        fn ($event) => [$event->id => $event->mempelai->nama_pria.' & '.$event->mempelai->nama_wanita.' / '.$event->nama_acara.' / '.$event->tanggal]
-                    ))->searchable(),
+                Select::make('acara_id')->label('Acara')
+                    ->options(fn () => AcaraResource::getEloquentQuery()->orderBy('tanggal')->pluck('nama_acara', 'id'))
+                    ->in(fn () => AcaraResource::getEloquentQuery()->pluck('id')->all())->searchable(),
                 TextInput::make('tamu_id')
                     ->required()
                     ->numeric(),

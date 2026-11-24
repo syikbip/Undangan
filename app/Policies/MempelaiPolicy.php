@@ -8,6 +8,11 @@ use App\Models\User;
 
 class MempelaiPolicy
 {
+    public function create(User $user): bool
+    {
+        return false;
+    }
+
     public function delete(User $user, Mempelai $record): bool
     {
         return $record->acaras()->whereIn('id', UndanganAktif::select('acara_id'))->doesntExist();

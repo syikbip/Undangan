@@ -14,9 +14,10 @@ class Mempelai extends Model
         'deskripsi',
         'story_photo',
         'teks_undangan',
+        'tanda_kasih',
     ];
 
-    protected $casts = ['teks_undangan' => 'array'];
+    protected $casts = ['teks_undangan' => 'array', 'tanda_kasih' => 'array'];
 
     public const TEKS_BAWAAN = [
         'pembuka' => "Dengan penuh syukur, kami mengundang\nAnda untuk hadir di hari bahagia kami.",

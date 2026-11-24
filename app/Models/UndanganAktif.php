@@ -16,6 +16,11 @@ class UndanganAktif extends Model
         return $setting?->acara_id ? Acara::with('mempelai')->find($setting->acara_id) : null;
     }
 
+    public static function queryIdMempelaiUtama(): \Illuminate\Database\Eloquent\Builder
+    {
+        return Acara::whereIn('id', static::select('acara_id')->whereKey(1))->select('mempelai_id');
+    }
+
     public static function untukKiriman(mixed $expected, bool $lock = false): Acara
     {
         $event = static::acaraAktif($lock);

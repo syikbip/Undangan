@@ -8,13 +8,8 @@ use App\Filament\Resources\Mempelais\MempelaiResource;
 use App\Filament\Resources\Rsvps\RsvpResource;
 use App\Filament\Resources\Tamus\TamuResource;
 use App\Filament\Resources\Ucapans\UcapanResource;
-use App\Models\Acara;
 use App\Models\UndanganAktif;
-use App\Models\Galeri;
-use App\Models\Mempelai;
-use App\Models\Rsvp;
 use App\Models\Tamu;
-use App\Models\Ucapan;
 use Filament\Support\Icons\Heroicon;
 use Filament\Widgets\Widget;
 
@@ -35,19 +30,19 @@ class WeddingOverview extends Widget
             'stats' => [
                 [
                     'label' => 'Data Mempelai',
-                    'value' => Mempelai::query()->count(),
+                    'value' => MempelaiResource::getEloquentQuery()->count(),
                     'icon' => Heroicon::OutlinedRectangleStack,
                     'url' => MempelaiResource::getUrl('index'),
                 ],
                 [
                     'label' => 'Acara',
-                    'value' => Acara::query()->count(),
+                    'value' => AcaraResource::getEloquentQuery()->count(),
                     'icon' => Heroicon::OutlinedCalendarDays,
                     'url' => AcaraResource::getUrl('index'),
                 ],
                 [
                     'label' => 'Galeri Foto',
-                    'value' => Galeri::query()->count(),
+                    'value' => GaleriResource::getEloquentQuery()->count(),
                     'icon' => Heroicon::OutlinedPhoto,
                     'url' => GaleriResource::getUrl('index'),
                 ],
@@ -59,21 +54,21 @@ class WeddingOverview extends Widget
                 ],
                 [
                     'label' => 'Jumlah respons RSVP',
-                    'value' => Rsvp::query()->count(),
+                    'value' => RsvpResource::getEloquentQuery()->count(),
                     'icon' => Heroicon::OutlinedClipboardDocumentCheck,
                     'url' => RsvpResource::getUrl('index'),
                 ],
                 [
                     'label' => 'Ucapan dan Doa',
-                    'value' => Ucapan::query()->count(),
+                    'value' => UcapanResource::getEloquentQuery()->count(),
                     'icon' => Heroicon::OutlinedChatBubbleLeftRight,
                     'url' => UcapanResource::getUrl('index'),
                 ],
             ],
-            'attendingResponses' => Rsvp::query()->where('status', 'hadir')->count(),
-            'attendingGuests' => Rsvp::query()->where('status', 'hadir')->sum('jumlah_hadir'),
-            'declinedResponses' => Rsvp::query()->where('status', 'tidak_hadir')->count(),
-            'latestGreetings' => Ucapan::query()
+            'attendingResponses' => RsvpResource::getEloquentQuery()->where('status', 'hadir')->count(),
+            'attendingGuests' => RsvpResource::getEloquentQuery()->where('status', 'hadir')->sum('jumlah_hadir'),
+            'declinedResponses' => RsvpResource::getEloquentQuery()->where('status', 'tidak_hadir')->count(),
+            'latestGreetings' => UcapanResource::getEloquentQuery()
                 ->with('tamu:id,nama')
                 ->latest()
                 ->limit(4)

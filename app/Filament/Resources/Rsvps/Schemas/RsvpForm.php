@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Rsvps\Schemas;
 
 use Filament\Forms\Components\Select;
+use App\Filament\Resources\Acaras\AcaraResource;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -15,9 +16,9 @@ class RsvpForm
                 TextInput::make('tamu_id')
                     ->required()
                     ->numeric(),
-                TextInput::make('acara_id')
-                    ->required()
-                    ->numeric(),
+                Select::make('acara_id')->label('Acara')
+                    ->options(fn () => AcaraResource::getEloquentQuery()->orderBy('tanggal')->pluck('nama_acara', 'id'))
+                    ->in(fn () => AcaraResource::getEloquentQuery()->pluck('id')->all())->searchable()->required(),
                 Select::make('status')
                     ->options(['hadir' => 'Hadir', 'tidak_hadir' => 'Tidak hadir'])
                     ->required(),

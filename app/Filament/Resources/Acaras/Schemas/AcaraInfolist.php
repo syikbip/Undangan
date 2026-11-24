@@ -11,8 +11,6 @@ class AcaraInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('mempelai_id')
-                    ->numeric(),
                 TextEntry::make('nama_acara'),
                 TextEntry::make('tanggal')
                     ->date(),

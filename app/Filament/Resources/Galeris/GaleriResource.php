@@ -10,6 +10,8 @@ use App\Filament\Resources\Galeris\Schemas\GaleriForm;
 use App\Filament\Resources\Galeris\Schemas\GaleriInfolist;
 use App\Filament\Resources\Galeris\Tables\GalerisTable;
 use App\Models\Galeri;
+use Illuminate\Database\Eloquent\Builder;
+use App\Models\UndanganAktif;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -29,6 +31,11 @@ class GaleriResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPhoto;
 
     protected static ?string $recordTitleAttribute = 'judul';
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->whereIn('mempelai_id', UndanganAktif::queryIdMempelaiUtama());
+    }
 
     public static function form(Schema $schema): Schema
     {

@@ -144,6 +144,7 @@
     </section>
 
     @include('components.wedding-guestbook')
+    <x-wedding-gift :settings="$mempelai->tanda_kasih ?? []" />
 
     <!-- FOOTER -->
     <footer class="wedding-closing">

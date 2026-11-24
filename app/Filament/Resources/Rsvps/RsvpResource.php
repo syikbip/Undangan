@@ -10,6 +10,8 @@ use App\Filament\Resources\Rsvps\Schemas\RsvpForm;
 use App\Filament\Resources\Rsvps\Schemas\RsvpInfolist;
 use App\Filament\Resources\Rsvps\Tables\RsvpsTable;
 use App\Models\Rsvp;
+use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\Acaras\AcaraResource;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -29,6 +31,11 @@ class RsvpResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentCheck;
 
     protected static ?string $recordTitleAttribute = 'id';
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->whereIn('acara_id', AcaraResource::getEloquentQuery()->select('id'));
+    }
 
     public static function form(Schema $schema): Schema
     {

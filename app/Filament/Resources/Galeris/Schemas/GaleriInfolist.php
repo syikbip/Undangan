@@ -11,8 +11,6 @@ class GaleriInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('mempelai_id')
-                    ->numeric(),
                 TextEntry::make('judul')
                     ->placeholder('-'),
                 TextEntry::make('foto'),

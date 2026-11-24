@@ -15,9 +15,6 @@ class GalerisTable
     {
         return $table
             ->columns([
-                TextColumn::make('mempelai_id')
-                    ->numeric()
-                    ->sortable(),
                 TextColumn::make('judul')
                     ->searchable(),
                 \Filament\Tables\Columns\ImageColumn::make('foto')->label('Foto')->disk('public')->visibility('public')->imageHeight(64)

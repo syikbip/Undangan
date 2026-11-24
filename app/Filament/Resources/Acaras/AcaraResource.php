@@ -10,6 +10,8 @@ use App\Filament\Resources\Acaras\Schemas\AcaraForm;
 use App\Filament\Resources\Acaras\Schemas\AcaraInfolist;
 use App\Filament\Resources\Acaras\Tables\AcarasTable;
 use App\Models\Acara;
+use Illuminate\Database\Eloquent\Builder;
+use App\Models\UndanganAktif;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -29,6 +31,11 @@ class AcaraResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCalendarDays;
 
     protected static ?string $recordTitleAttribute = 'nama_acara';
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->whereIn('mempelai_id', UndanganAktif::queryIdMempelaiUtama());
+    }
 
     public static function form(Schema $schema): Schema
     {
