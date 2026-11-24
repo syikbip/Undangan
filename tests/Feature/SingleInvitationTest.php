@@ -60,4 +60,3 @@ class SingleInvitationTest extends TestCase
         $this->assertSame('Album baru', $photo->refresh()->judul);
     }
 }
-
