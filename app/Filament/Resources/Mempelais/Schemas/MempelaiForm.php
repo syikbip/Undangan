@@ -78,6 +78,18 @@ class MempelaiForm
                 Textarea::make('deskripsi')
                     ->label('Kisah Cinta')
                     ->columnSpanFull(),
+                Section::make('Musik latar')->columnSpanFull()->schema([
+                    Toggle::make('music_enabled')->label('Aktifkan musik latar')->default(false)->live(),
+                    FileUpload::make('music_file')->label('Lagu undangan')
+                        ->disk('public')->directory('musik')->visibility('public')
+                        ->storeFileNamesIn('music_filename')->preventFilePathTampering()
+                        ->acceptedFileTypes(['audio/mpeg', 'audio/mp4', 'audio/x-m4a', 'audio/ogg', 'application/ogg'])
+                        ->maxSize(10240)->required(fn (Get $get) => (bool) $get('music_enabled'))
+                        ->helperText('MP3, M4A, atau OGG, maksimal 10 MB. Gunakan lagu yang Anda miliki izin pemakaiannya.'),
+                    TextInput::make('music_volume')->label('Volume awal')->integer()->minValue(0)->maxValue(100)
+                        ->suffix('%')->default(35)->required(),
+                    Toggle::make('music_autoplay_on_open')->label('Putar saat tamu menekan Buka Undangan')->default(true),
+                ]),
                 Section::make('Tanda Kasih')->columnSpanFull()->schema([
                     Section::make('Transfer Bank')->schema([
                         Toggle::make('tanda_kasih.bank.active')->label('Aktifkan Transfer Bank')->live(),

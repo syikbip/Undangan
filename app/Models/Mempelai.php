@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Mempelai extends Model
 {
@@ -15,9 +16,38 @@ class Mempelai extends Model
         'story_photo',
         'teks_undangan',
         'tanda_kasih',
+        'music_enabled', 'music_file', 'music_filename', 'music_volume', 'music_autoplay_on_open',
     ];
 
     protected $casts = ['teks_undangan' => 'array', 'tanda_kasih' => 'array'];
+
+    protected static function booted(): void
+    {
+        static::saving(function (self $couple) {
+            if ($couple->isDirty('music_file') && ! $couple->music_file) {
+                $couple->music_filename = null;
+                $couple->music_enabled = false;
+            }
+        });
+
+        static::updated(function (self $couple) {
+            if ($couple->wasChanged('music_file')) {
+                $couple->removeUnusedMusic($couple->getRawOriginal('music_file'));
+            }
+        });
+        static::deleted(fn (self $couple) => $couple->removeUnusedMusic($couple->music_file));
+    }
+
+    private function removeUnusedMusic(?string $file): void
+    {
+        if ($file && str_starts_with($file, 'musik/')) {
+            $this->getConnection()->afterCommit(function () use ($file) {
+                if (! static::where('music_file', $file)->exists()) {
+                    Storage::disk('public')->delete($file);
+                }
+            });
+        }
+    }
 
     public const TEKS_BAWAAN = [
         'pembuka' => "Dengan penuh syukur, kami mengundang\nAnda untuk hadir di hari bahagia kami.",

@@ -161,6 +161,8 @@
         <time datetime="{{ $akadDate->toDateString() }}">{{ $akadDate->translatedFormat('d F Y') }}</time>
     </footer>
 
+    <x-invitation-music :couple="$mempelai" />
+
     <!-- JAVASCRIPT -->
     <script>
         const openingCover = document.getElementById('openingCover');
@@ -169,6 +171,7 @@
         const invitationStart = document.getElementById('surat-undangan');
 
         openInvitation.addEventListener('click', () => {
+            document.dispatchEvent(new CustomEvent('invitation:opened', { detail: { fromClick: true } }));
             openInvitation.disabled = true;
             openInvitation.setAttribute('aria-expanded', 'true');
             invitationContent.removeAttribute('inert');
@@ -188,6 +191,7 @@
         const returnSection = @js($formKembali) || location.hash.slice(1);
         if (['acara', 'rsvp', 'ucapan'].includes(returnSection)) {
             document.body.classList.add('invitation-open');
+            document.dispatchEvent(new CustomEvent('invitation:opened', { detail: { fromClick: false } }));
             openingCover.hidden = true;
             invitationContent.removeAttribute('inert');
             invitationContent.removeAttribute('aria-hidden');
