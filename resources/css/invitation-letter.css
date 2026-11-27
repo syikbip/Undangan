@@ -1,5 +1,5 @@
 #invitationContent .invitation-letter {
-    --ink: #30170f;
+    --ink: var(--color-espresso);
     --foil: #c48b37;
     --rule: #e0bc79;
     --wine: #6b1720;
@@ -27,13 +27,13 @@
 .letter-label, .letter-divider { display: flex; align-items: center; justify-content: center; }
 .letter-label { font-size: clamp(16px,1.55vw,32px); letter-spacing: .44em; text-transform: uppercase; gap: 1.2em; }
 .letter-label::before, .letter-label::after, .letter-divider::before, .letter-divider::after { content: ''; width: 4.8vw; height: 1px; background: var(--rule); }
-#invitationContent .letter-copy h2 { font: 500 clamp(58px,6.05vw,145px)/1.13 'Bodoni Moda', Georgia, serif; letter-spacing: -.047em; margin: 2.8vw 0 1.75vw; white-space: nowrap; }
-.letter-copy h2 i { color: var(--foil); font: 400 1.15em/.8 'Great Vibes', Georgia, serif; vertical-align: -.035em; }
-.letter-message { font-size: clamp(20px,2.25vw,48px); font-style: italic; line-height: 1.25; }
+#invitationContent .letter-copy h2 { font: var(--type-name); white-space: normal; letter-spacing: -.035em; margin: 2.8vw 0 1.75vw; }
+.letter-copy h2 i { font: italic 500 1em/1 var(--font-display); color: var(--foil); vertical-align: -.035em; }
+.letter-message { font: var(--type-body); }
 .letter-divider { gap: 1.3vw; margin: 2.45vw auto 1.6vw; }
 .letter-divider span { width: .92vw; height: .92vw; transform: rotate(45deg); background: conic-gradient(var(--foil) 25%, transparent 0 50%, var(--foil) 0 75%, transparent 0) 0 0 / 53% 53%; }
-.letter-date { display: block; font-size: clamp(19px,2vw,46px); letter-spacing: .12em; }
-#invitationContent .letter-calendar { display: inline-grid; place-items: center; isolation: isolate; position: relative; min-height: 44px; width: 26.4vw; padding: .9vw 1rem; margin-top: 2.25vw; background: var(--foil); color: #fff5e9; font-size: clamp(22px,2.2vw,46px); --shape: polygon(8px 0,calc(100% - 8px) 0,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0 calc(100% - 8px),0 8px); clip-path: var(--shape); }
+.letter-date { font: var(--type-body); display: block; letter-spacing: .12em; }
+#invitationContent .letter-calendar { font: var(--type-control); display: inline-grid; place-items: center; isolation: isolate; position: relative; min-height: 44px; width: 26.4vw; padding: .9vw 1rem; margin-top: 2.25vw; background: var(--foil); color: #fff5e9; --shape: polygon(8px 0,calc(100% - 8px) 0,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0 calc(100% - 8px),0 8px); clip-path: var(--shape); }
 .letter-calendar::before { content: ''; position: absolute; inset: 3px; z-index: -1; clip-path: var(--shape); background: var(--wine); }
 .letter-calendar:hover::before { background: #51141c; }
 .letter-calendar:focus-visible { text-decoration: underline !important; text-underline-offset: .15em; }
@@ -43,15 +43,15 @@
     .letter-envelope { width: min(84%,390px); margin: 0; transform: none; }
     .letter-copy { padding: 0; transform: none; }
     .letter-label { font-size: 15px; gap: .8em; }
-    #invitationContent .letter-copy h2 { font-size: clamp(43px,10.8vw,82px); margin: 18px 0 12px; }
-    .letter-message { max-width: 36ch; margin: auto; font-size: clamp(20px,4.6vw,28px); }
+    #invitationContent .letter-copy h2 { margin: 18px 0 12px; }
+    .letter-message { max-width: 36ch; margin: auto; }
     .letter-break { display: none; }
     .letter-divider { gap: 12px; margin: 20px auto 12px; }
     .letter-divider span { width: 9px; height: 9px; }
     .letter-divider::before, .letter-divider::after, .letter-label::before, .letter-label::after { width: 36px; }
-    .letter-date { font-size: clamp(18px,4.5vw,26px); letter-spacing: .08em; }
+    .letter-date { letter-spacing: .08em; }
     #invitationContent .letter-calendar { width: min(82%,290px); padding: 8px 18px; margin-top: 20px; }
 }
 
 .letter-shortcuts { display: flex; justify-content: center; flex-wrap: wrap; gap: 0 1.25rem; margin-top: .35rem; }
-#invitationContent .letter-shortcuts a { display: inline-flex; align-items: center; min-height: 44px; color: var(--wine); font: 500 1rem/1.3 var(--font-display); text-decoration: underline; text-underline-offset: .2em; }
+#invitationContent .letter-shortcuts a { font: var(--type-control); display: inline-flex; align-items: center; min-height: 44px; color: var(--wine); text-decoration: underline; text-underline-offset: .2em; }

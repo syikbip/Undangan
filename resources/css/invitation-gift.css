@@ -1,10 +1,10 @@
 .gift {
+    font: var(--type-body);
     position: relative;
     isolation: isolate;
     overflow: hidden;
     padding: clamp(38px,3vw,52px) 6% clamp(44px,3.2vw,58px);
     background: #fbf3e6 url('/assets/wedding/ivory-paper-texture.webp') center / 600px;
-    font: 500 clamp(20px,2vw,34px)/1.2 var(--font-display);
     color: var(--color-espresso);
     text-align: center;
 }
@@ -14,10 +14,10 @@
 .gift::before { bottom: 0; left: 0; width: 14%; height: 36%; transform: scaleX(-1); background-image: url('/assets/wedding/story-lily-embossed.webp'); background-position: right bottom; }
 .gift::after { top: 3%; right: 1%; width: 18%; height: 24%; background-image: url('/assets/wedding/gift-botanical-top-right.webp'); background-position: right top; }
 .gift h2, .gift h3 { color: var(--color-burgundy); font-family: var(--font-display); font-style: italic; line-height: 1; }
-#invitationContent .gift h2 { margin: 0; font: italic 600 clamp(58px,7.45vw,125px)/1 var(--font-display); }
+#invitationContent .gift h2 { font: var(--type-heading); color: var(--color-burgundy); margin: 0; }
 .gift-divider { display: block; width: clamp(100px,12vw,200px); height: clamp(25px,3.4vw,56px); object-fit: contain; margin: .12em auto .24em; }
-.gift-intro { max-width: 1080px; margin: auto; font-weight: 600; }
-.gift-toggle { color: var(--color-burgundy); font: inherit; font-weight: 600; border: 0; background: transparent; cursor: pointer; min-height: 44px; margin: .4em auto; }
+.gift-intro { font-weight: 400; max-width: 65ch; margin: auto; }
+.gift-toggle { font: var(--type-control); color: var(--color-burgundy); border: 0; background: transparent; cursor: pointer; min-height: 44px; margin: .4em auto; }
 .gift-toggle span { text-decoration: underline; text-underline-offset: .13em; }
 .gift-toggle i { display: inline-block; width: .45em; height: .45em; border: solid currentColor; border-width: 2px 2px 0 0; margin-left: .2em; transform: rotate(-45deg); }
 .gift-toggle[aria-expanded=false] i { transform: translateY(-.2em) rotate(135deg); }
@@ -25,13 +25,13 @@
 .gift-option { min-width: 0; padding-inline: 5%; display: flex; flex-direction: column; align-items: center; overflow-wrap: anywhere; }
 .gift-option + .gift-option { border-left: 1px solid var(--color-antique); }
 .gift-icon { width: clamp(64px,6vw,102px); height: auto; }
-#invitationContent .gift h3 { font-weight: 600; font-size: clamp(38px,3.4vw,58px); margin: .15em 0 .2em; }
+#invitationContent .gift h3 { font: 500 clamp(28px, 3vw, 36px)/1.15 var(--font-display); margin: .15em 0 .2em; }
 .gift-number { font-size: clamp(32px,3.6vw,60px); line-height: 1.16; font-variant-numeric: lining-nums; }
-.gift-copy { --cut: polygon(3% 0,97% 0,100% 16%,100% 84%,97% 100%,3% 100%,0 84%,0 16%); clip-path: var(--cut); position: relative; isolation: isolate; background: #c39848; border: 0; color: #fff6e8; display: inline-flex; justify-content: center; align-items: center; gap: .55em; font: inherit; min-height: 48px; width: min(100%,468px); padding: .5em .6em; margin-top: .9em; cursor: pointer; }
+.gift-copy { font: var(--type-control); --cut: polygon(3% 0,97% 0,100% 16%,100% 84%,97% 100%,3% 100%,0 84%,0 16%); clip-path: var(--cut); position: relative; isolation: isolate; background: #c39848; border: 0; color: #fff6e8; display: inline-flex; justify-content: center; align-items: center; gap: .55em; min-height: 48px; width: min(100%,468px); padding: .5em .6em; margin-top: .9em; cursor: pointer; }
 .gift-copy::before { content: ''; position: absolute; z-index: -1; inset: 2px; background: #741523; clip-path: var(--cut); }
 .gift-copy:focus-visible { text-decoration: underline; }
 .gift-copy:disabled { cursor: default; opacity: .75; }
-.gift-feedback { font-size: .68em; user-select: all; }
+.gift-feedback { font-size: 16px; user-select: all; }
 .gift-feedback:not(:empty) { margin-top: .4em; }
 .gift [hidden] { display: none; }
 @media (max-width: 700px) {

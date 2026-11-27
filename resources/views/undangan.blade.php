@@ -16,7 +16,7 @@
     <title>Undangan Pernikahan | {{ $namaPria }} &amp; {{ $namaWanita }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Bodoni+Moda:wght@500&amp;family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&amp;family=Source+Sans+3:wght@400;600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500&amp;family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&amp;family=Source+Sans+3:wght@400;600&amp;display=swap" rel="stylesheet">
     @vite('resources/css/invitation.css')
 </head>
 

@@ -1,6 +1,4 @@
 #invitationContent #story {
-    --story-ink: #30170f;
-    --story-wine: #6b1720;
     isolation: isolate;
     position: relative;
     display: grid;
@@ -11,7 +9,7 @@
     background: #fffaf5 url('/assets/wedding/ivory-paper-texture.webp') repeat;
     background-blend-mode: multiply;
     font-family: var(--font-display);
-    color: var(--story-ink);
+    color: var(--color-espresso);
 }
 #story::before {
     content: '';
@@ -38,12 +36,10 @@
 #story .story-corner.bl { left: 0; bottom: 0; transform: scaleY(-1); }
 #story .story-corner.br { right: 0; bottom: 0; transform: scale(-1); }
 #invitationContent #story h2 {
-    color: var(--story-wine);
-    font: italic 500 7.65vw/1.04 var(--font-display);
+    color: var(--color-burgundy);
+    font: var(--type-heading);
     margin-left: 1.1vw;
     width: fit-content;
-    transform: scaleX(1.07);
-    transform-origin: left center;
 }
 #story .story-divider {
     display: flex;
@@ -58,13 +54,12 @@
     height: 1px;
     background: #c48b37;
 }
-#story .story-prose { font-size: max(18px,1.61vw); line-height: 1.15; font-weight: 500; }
-#story .story-prose p + p { margin-top: .95vw; }
-#story blockquote { font: italic 500 max(21px,1.95vw)/1.12 var(--font-display); max-width: min(100%, 36vw); margin-top: 1.55vw; }
-#story .story-signature { color: var(--story-wine); font: italic 500 max(28px,2.82vw)/1.1 var(--font-display); margin-top: 2.65vw; }
+#story .story-prose { font: 400 17px/1.6 var(--font-sans); }
+#story .story-prose p + p:not(.story-signature) { margin-top: 14px; }
+#story blockquote { font: italic 500 22px/1.35 var(--font-display); max-width: min(100%, 36vw); margin-top: 1.55vw; }
+#story .story-signature { color: var(--color-burgundy); font: italic 500 36px/1.1 var(--font-display); margin-top: 2.65vw; }
 @media (min-width: 768px) and (max-width: 1050px) {
     #invitationContent #story { padding: 5vw 6vw 5vw 4vw; column-gap: 3vw; }
-    #story .story-prose { line-height: 1.2; }
     #story blockquote { max-width: 100%; }
 }
 @media (max-width: 767px) {
@@ -76,14 +71,13 @@
     }
     #story .story-copy { display: contents; }
     #story .story-heading { grid-area: heading; text-align: center; }
-    #invitationContent #story h2 { margin: 0 auto; transform: none; font-size: clamp(48px,11vw,72px); }
+    #invitationContent #story h2 { margin: 0 auto; }
     #story .story-divider { justify-content: center; gap: 12px; margin: 8px auto 0; }
     #story .story-divider img { width: 88px; }
     #story .story-divider::before, #story .story-divider::after { width: 17%; }
     #story .story-mount { grid-area: photo; width: min(100%,420px); justify-self: center; }
-    #story .story-prose { grid-area: text; font-size: 21px; line-height: 1.27; }
-    #story .story-prose p + p { margin-top: 14px; }
-    #story blockquote { max-width: 100%; font-size: 24px; margin: 18px 0; }
+    #story .story-prose { grid-area: text; }
+    #story blockquote { max-width: 100%; margin: 18px 0; }
     #story .story-signature { font-size: 32px; margin-top: 20px; }
     #story::before { width: 30%; opacity: .45; }
 }

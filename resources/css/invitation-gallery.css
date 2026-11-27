@@ -5,8 +5,8 @@
     padding: 1vw 4.5vw 4.3vw;
     background: #fff9f2 url('/assets/wedding/ivory-paper-texture.webp') repeat;
     background-blend-mode: multiply;
-    color: #30170f;
-    font-family: var(--font-display);
+    color: var(--color-espresso);
+    font: var(--type-body);
 }
 #galeri::before, #galeri::after {
     content: '';
@@ -21,11 +21,11 @@
 #galeri::before { left: 0; }
 #galeri::after { right: 0; transform: scaleX(-1); }
 #galeri .gallery-heading { text-align: center; }
-#invitationContent #galeri h2 { font: italic 500 clamp(68px,8.1vw,168px)/.94 var(--font-display); color: #6b1720; width: fit-content; margin-inline: auto; transform: scaleX(1.06); }
+#invitationContent #galeri h2 { font: var(--type-heading); color: var(--color-burgundy); width: fit-content; margin-inline: auto; }
 #galeri .gallery-divider { display: flex; align-items: center; justify-content: center; gap: 1.4vw; margin: .15vw auto 0; }
 #galeri .gallery-divider img { width: 11.2vw; height: auto; }
 #galeri .gallery-divider::before, #galeri .gallery-divider::after { content: ''; width: 9.2vw; height: 1px; background: var(--color-antique); }
-#galeri .gallery-heading p { margin: .2vw auto 0; font-size: clamp(22px,2.05vw,42px); line-height: 1.2; }
+#galeri .gallery-heading p { font: var(--type-body); margin: .2vw auto 0; }
 #galeri .gallery-pages { margin-top: 2.65vw; }
 #galeri .gallery-spread {
     display: grid;
